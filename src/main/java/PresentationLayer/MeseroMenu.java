@@ -1,5 +1,5 @@
 package PresentationLayer;
-
+import Connection.UConnection;
 import componentes.AnimatedButtonMesero;
 import java.awt.Color;
 import java.awt.Font;
@@ -8,18 +8,21 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class MeseroMenu extends javax.swing.JFrame {
 
+
+public class MeseroMenu extends javax.swing.JFrame {
     private final String logo_reporte = "/icons/reporte.png";
     private final String logo_mesa = "/icons/mesa.png";
     private final String logo_mesa1 = "/icons/mesa1.png";
     private final String logo_salir = "/icons/cerrar-sesion.png";
-
+    private componentes.PanelRound[] mesas;
     AnimatedButtonMesero ColorOP = new AnimatedButtonMesero();
 
+    
     public MeseroMenu() {
-        initComponents();
-
+        initComponents(); // Método que genera los elementos gráficos
+        inicializarMesas();
+        inicializarColoresMesas(); //Configura los colores al abrir el JFrame
         pestañas.setEnabledAt(0, false);
         pestañas.setEnabledAt(1, false);
         setLocationRelativeTo(null);
@@ -31,7 +34,7 @@ public class MeseroMenu extends javax.swing.JFrame {
         jtblReporte.getTableHeader().setForeground(Color.BLACK);
         jtblReporte.setRowHeight(20);
     }
-
+   
     private Icon getIcono(String ruta) {
         return new ImageIcon(new ImageIcon(getClass().getResource(ruta))
                 .getImage().getScaledInstance(45, 45, 0));
@@ -41,6 +44,64 @@ public class MeseroMenu extends javax.swing.JFrame {
         return new ImageIcon(new ImageIcon(getClass().getResource(ruta))
                 .getImage().getScaledInstance(150, 120, 0));
     }
+    private void inicializarMesas() {
+    mesas = new componentes.PanelRound[] {
+        mesa1, mesa2, mesa3, mesa4, mesa5, mesa6, mesa7, mesa8, mesa9,
+        mesa10, mesa11, mesa12, mesa13, mesa14, mesa15, mesa16, mesa17,
+        mesa18, mesa19, mesa20
+    };
+    for (int i = 0; i < mesas.length; i++) {
+        int mesaId = i + 1; // El ID de la mesa es índice + 1
+        mesas[i].addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                mesaMousePressed(evt, mesaId);
+            }
+        });
+    }
+}
+    private void mesaMousePressed(java.awt.event.MouseEvent evt, int mesaId) {
+    String id_mesa = String.valueOf(mesaId);
+
+    // Obtiene el estado actual de la mesa desde la base de datos
+    String estadoActual = UConnection.obtenerEstadoMesa(mesaId);
+
+    // Cambiar a la pestaña correspondiente
+    pestañas.setSelectedIndex(4);
+
+    // Actualizar el color de la mesa
+    actualizarColorMesa(id_mesa, estadoActual);
+
+    // Realizar animaciones adicionales, si aplica
+    ColorOP.AnimattMesas();
+}
+    private void inicializarColoresMesas() {
+    for (int i = 0; i < mesas.length; i++) {
+        int mesaId = i + 1; // El ID de la mesa corresponde al índice + 1
+        String estado = UConnection.obtenerEstadoMesa(mesaId); // Obtener el estado de la base de datos
+        actualizarColorMesa(String.valueOf(mesaId), estado); // Actualizar el color
+    }
+}
+   
+    private void actualizarColorMesa(String id_mesa, String estado) {
+        int index = Integer.parseInt(id_mesa) - 1; // Convertir ID a índice del array
+    componentes.PanelRound mesa = mesas[index]; // Obtener la mesa correspondiente
+
+    switch (estado) {
+        case "reservado":
+            mesa.setBackground(Color.YELLOW); // Color amarillo para reservado
+            break;
+        case "ocupado":
+            mesa.setBackground(Color.RED); // Color rojo para ocupado
+            break;
+        case "libre":
+            mesa.setBackground(Color.GREEN); // Color verde para libre
+            break;
+        default:
+            mesa.setBackground(Color.GRAY); // Color predeterminado para estados desconocidos
+        break;}
+
+ }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1472,7 +1533,7 @@ public class MeseroMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btn_reporteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_reporteMousePressed
         pestañas.setSelectedIndex(1);
         ColorOP.AnimattReporte();

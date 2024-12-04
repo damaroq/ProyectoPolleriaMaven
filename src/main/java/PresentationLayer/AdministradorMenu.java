@@ -485,10 +485,20 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jcbUsuarioBuscarCat.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jcbUsuarioBuscarCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Nombres" }));
         jcbUsuarioBuscarCat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jcbUsuarioBuscarCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbUsuarioBuscarCatActionPerformed(evt);
+            }
+        });
         fondo_beige.add(jcbUsuarioBuscarCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 160, 30));
 
         jtxtUsuarioBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtUsuarioBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jtxtUsuarioBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtUsuarioBuscarActionPerformed(evt);
+            }
+        });
         fondo_beige.add(jtxtUsuarioBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 330, 30));
 
         jbUsuarioBuscar.setBackground(new java.awt.Color(254, 233, 119));
@@ -526,7 +536,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
             .addGroup(jpRolLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jlRol)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpRolLayout.setVerticalGroup(
             jpRolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,7 +558,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 jcbUsuarioRolActionPerformed(evt);
             }
         });
-        fondo_beige.add(jcbUsuarioRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 160, 30));
 
         jbUsuarioCrear.setBackground(new java.awt.Color(209, 32, 31));
         jbUsuarioCrear.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -2593,7 +2602,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
         }
          */
     }//GEN-LAST:event_jbEliminarAsignacionActionPerformed
-    /* ----- USUARIOS ----- */
+    /* ----- USUARIOS ----- .....*/
     private void jbUsuarioMostrarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioMostrarListaActionPerformed
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -2630,6 +2639,8 @@ public class AdministradorMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jbUsuarioLimpiarListaActionPerformed
 
     private void jbUsuarioBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioBuscarActionPerformed
+     
+       
         try {
             ArrayList<Usuario> usuarios = null;
             Usuario usuario = null;
@@ -3035,531 +3046,12 @@ public class AdministradorMenu extends javax.swing.JFrame {
          */
     }//GEN-LAST:event_jcbFiltroAsignacionItemStateChanged
 
-    private void jbUsuarioGuardarActuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioGuardarActuActionPerformed
 
-        try {
-            // Obtener los valores de los campos
-            String nombresActu = jtxtNombresActu.getText();
-            String apellidosActu = jtxtApellidosActu.getText();
-            String dniActu = jtxtDNIActu.getText();
-            String telefonoActu = jtxtTelefonoActu.getText();
-            String nomUsuarioActu = jtxtNomUsuarioActu.getText();
-            String idUsuarioActu = jtxtUsuarioIDActu.getText();
-
-            // Validaciones
-            if (nombresActu.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Los nombres no deben estar vacíos.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!nombresActu.matches("[a-zA-Z ]+")) {
-                JOptionPane.showMessageDialog(null, "Los nombres deben contener solo letras.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (nombresActu.length() > 100) {
-                JOptionPane.showMessageDialog(null, "Los nombres deben tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (apellidosActu.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Los apellidos no deben estar vacíos.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!apellidosActu.matches("[a-zA-Z ]+")) {
-                JOptionPane.showMessageDialog(null, "Los apellidos deben contener solo letras.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (apellidosActu.length() > 100) {
-                JOptionPane.showMessageDialog(null, "Los apellidos deben tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (dniActu.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El DNI no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!dniActu.matches("\\d{8}")) {
-                JOptionPane.showMessageDialog(null, "El DNI debe contener exactamente 8 dígitos numéricos.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (telefonoActu.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El teléfono no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!telefonoActu.matches("\\d{9}")) {
-                JOptionPane.showMessageDialog(null, "El teléfono debe contener exactamente 9 dígitos numéricos.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (nomUsuarioActu.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El nombre de usuario no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (nomUsuarioActu.length() > 100) {
-                JOptionPane.showMessageDialog(null, "El nombre de usuario debe tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Crear el objeto Usuario y asignar valores
-            UsuarioBO usuarioBO = new UsuarioBO();
-            Usuario usuario = new Usuario();
-
-            usuario.setNombres(nombresActu);
-            usuario.setApellidos(apellidosActu);
-            usuario.setDni(dniActu);
-            usuario.setTelefono(telefonoActu);
-            usuario.setNomUsuario(nomUsuarioActu);
-            usuario.setRol((String) jcbFormularioRol.getSelectedItem());
-
-            if (!(idUsuarioActu.isEmpty())) {
-                usuario.setId_usuario(Integer.parseInt(idUsuarioActu));
-                usuarioBO.actualizar(usuario);
-            }
-
-            JOptionPane.showMessageDialog(null, "El USUARIO se actualizó correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            pestañas.setSelectedIndex(0);
-            refreshTablaUsuarios();
-            limpiarFormUsuarioUsuarios();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jbUsuarioGuardarActuActionPerformed
-
-    private void jbUsuarioCancelarActuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioCancelarActuActionPerformed
-        pestañas.setSelectedIndex(0);
-        ColorOP.AnimattUsuarios();
-        limpiarFormUsuariosActu();
-        refreshTablaUsuarios();
-    }//GEN-LAST:event_jbUsuarioCancelarActuActionPerformed
 
     private void jcbUsuarioRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUsuarioRolActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbUsuarioRolActionPerformed
 
-    private void jtblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblUsuariosMouseClicked
-
-        int selectedRow = jtblUsuarios.getSelectedRow();
-
-        // Verificar si se ha seleccionado una fila
-        if (selectedRow != -1) {
-            // Obtener los datos de la fila seleccionada
-            String[] usuarioData = new String[7];
-            for (int i = 0; i < usuarioData.length; i++) {
-                usuarioData[i] = jtblUsuarios.getValueAt(selectedRow, i).toString();
-            }
-
-            // Cambiar a la pestaña del formulario
-            pestañas.setSelectedIndex(8);
-
-            // Llenar el formulario con los datos del usuario seleccionado
-            llenarFormularioUsuario(usuarioData);
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario para actualizar.", "Error", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jtblUsuariosMouseClicked
-
-    private void jbUsuarioEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioEliminarActionPerformed
-        // Obtener el ID del usuario desde el label
-        String id = jtxtUsuarioIDActu.getText(); // Asegúrate de que este label contenga el ID correcto
-
-        // Verificar que el ID no esté vacío
-        if (id != null && !id.isEmpty()) {
-            // Confirmar la eliminación
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este usuario?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                try {
-                    // Crear una instancia de UsuarioBO
-                    UsuarioBO usuarioBO = new UsuarioBO();
-                    // Llamar al método eliminar
-                    usuarioBO.eliminar(Integer.parseInt(id));
-                    // Mostrar un mensaje de éxito
-                    JOptionPane.showMessageDialog(this, "Usuario eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    pestañas.setSelectedIndex(0);
-                    limpiarFormUsuariosActu();
-                    refreshTablaUsuarios();
-                } catch (NumberFormatException e) {
-                    // Manejar el caso donde el ID no es un número válido
-                    JOptionPane.showMessageDialog(this, "ID de usuario no válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (Exception e) {
-                    // Manejar cualquier otra excepción que pueda ocurrir
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Error al eliminar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            // Manejar el caso donde el ID está vacío
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jbUsuarioEliminarActionPerformed
-
-    private void jbPlatosGuardarActuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPlatosGuardarActuActionPerformed
-        try {
-            // Obtener los valores de los campos
-            String nombre = jtxtPlatoNombre.getText();
-            String descripción = jtxtPlatoDescripcion.getText();
-            String precio = jtxtPlatoPrecio.getText();
-            String idPlato = jtxtPlatoID.getText();
-
-            // Validaciones
-            if (nombre.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Los nombres de los platos no deben estar vacíos.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (nombre.length() > 100) {
-                JOptionPane.showMessageDialog(null, "Los nombres de los platos deben tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (descripción.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "La descripción no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (precio.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El precio no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Crear el objeto Usuario y asignar valores
-            PlatoComidaBO platoBO = new PlatoComidaBO();
-            PlatoComida plato = new PlatoComida();
-
-            plato.setNombre(nombre);
-            plato.setDescripcion(descripción);
-            plato.setPrecio(Double.parseDouble(precio));
-            plato.setCategoria((String) jcbPlatosFormCat.getSelectedItem());
-
-            // Guardar o actualizar el usuario
-            if (!(idPlato.isEmpty())) {
-                plato.setId_plato(Integer.parseInt(idPlato));
-                platoBO.actualizar(plato);
-            }
-
-            JOptionPane.showMessageDialog(null, "El PLATO se registró correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            pestañas.setSelectedIndex(2);
-            limpiarFormUsuarioPlato();
-            refreshTablaPlatos();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jbPlatosGuardarActuActionPerformed
-
-    private void jbPlatosCancelarActuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPlatosCancelarActuActionPerformed
-        pestañas.setSelectedIndex(2);
-        ColorOP.AnimattPlatosComida();
-        limpiarFormPlatosActu();
-        refreshTablaPlatos();
-    }//GEN-LAST:event_jbPlatosCancelarActuActionPerformed
-
-    private void jtblPlatosComidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblPlatosComidaMouseClicked
-        int selectedRow = jtblPlatosComida.getSelectedRow();
-
-        // Verificar si se ha seleccionado una fila
-        if (selectedRow != -1) {
-            // Obtener los datos de la fila seleccionada
-            String[] platoData = new String[5];
-            for (int i = 0; i < platoData.length; i++) {
-                platoData[i] = jtblPlatosComida.getValueAt(selectedRow, i).toString();
-            }
-
-            // Cambiar a la pestaña del formulario
-            pestañas.setSelectedIndex(9);
-
-            // Llenar el formulario con los datos del usuario seleccionado
-            llenarFormularioPlato(platoData);
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un plato para actualizar.", "Error", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jtblPlatosComidaMouseClicked
-
-    private void jbPlatosEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPlatosEliminarActionPerformed
-        // Obtener el ID del usuario desde el label
-        String id = jtxtPlatoIDActu.getText(); // Asegúrate de que este label contenga el ID correcto
-
-        // Verificar que el ID no esté vacío
-        if (id != null && !id.isEmpty()) {
-            // Confirmar la eliminación
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este plato?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                try {
-                    // Crear una instancia de UsuarioBO
-                    PlatoComidaBO platoBO = new PlatoComidaBO();
-                    // Llamar al método eliminar
-                    platoBO.eliminar(Integer.parseInt(id));
-                    // Mostrar un mensaje de éxito
-                    JOptionPane.showMessageDialog(this, "Plato de comida eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    pestañas.setSelectedIndex(2);
-                    limpiarFormPlatosActu();
-                    refreshTablaPlatos();
-                } catch (NumberFormatException e) {
-                    // Manejar el caso donde el ID no es un número válido
-                    JOptionPane.showMessageDialog(this, "ID del plato no válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (Exception e) {
-                    // Manejar cualquier otra excepción que pueda ocurrir
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Error al eliminar el plato de comida.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            // Manejar el caso donde el ID está vacío
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un plato para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jbPlatosEliminarActionPerformed
-
-    private void jbProductoGuardarActuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbProductoGuardarActuActionPerformed
-        try {
-            // Obtener los valores de los campos
-            String nombres = jtxtProductoNombre.getText();
-            String detalle = jtxtProductoDetalle.getText();
-            String precio = jtxtProductoPrecio.getText();
-            String idProducto = jtxtProductoID.getText();
-
-            // Validaciones
-            if (nombres.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El nombre del producto no debe estar vacíos.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (nombres.length() > 100) {
-                JOptionPane.showMessageDialog(null, "El nombre del producto debe tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (detalle.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Los detalles no deben estar vacíos.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (precio.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El precio no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!precio.matches("\\d+(\\.\\d+)?")) {
-                JOptionPane.showMessageDialog(null, "El precio debe ser un número válido", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Crear el objeto Usuario y asignar valores
-            ProductosBO productoBO = new ProductosBO();
-            Productos producto = new Productos();
-
-            producto.setNombre(nombres);
-            producto.setDetalle(detalle);
-            producto.setCategoria((String) jcbProductoFormCat.getSelectedItem());
-            producto.setCantidad((int) jtxtProductoCantidad.getValue());
-            producto.setPrecio(Double.parseDouble(precio));
-
-            // Guardar o actualizar el usuario
-            if (!(idProducto.isEmpty())) {
-                producto.setId_producto(Integer.valueOf(idProducto));
-                productoBO.actualizar(producto);
-            }
-
-            JOptionPane.showMessageDialog(null, "El PRODUCTO se actualizó correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            pestañas.setSelectedIndex(4);
-            limpiarFormProductoActu();
-            refreshTablaProductos();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jbProductoGuardarActuActionPerformed
-
-    private void jbProductoCancelarActuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbProductoCancelarActuActionPerformed
-        pestañas.setSelectedIndex(4);
-        ColorOP.AnimattProductos();
-        limpiarFormProductoActu();
-        refreshTablaProductos();
-    }//GEN-LAST:event_jbProductoCancelarActuActionPerformed
-
-    private void jtblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblProductosMouseClicked
-        int selectedRow = jtblProductos.getSelectedRow();
-
-        // Verificar si se ha seleccionado una fila
-        if (selectedRow != -1) {
-            // Obtener los datos de la fila seleccionada
-            String[] productoData = new String[6];
-            for (int i = 0; i < productoData.length; i++) {
-                productoData[i] = jtblProductos.getValueAt(selectedRow, i).toString();
-            }
-
-            // Cambiar a la pestaña del formulario
-            pestañas.setSelectedIndex(10);
-
-            // Llenar el formulario con los datos del usuario seleccionado
-            llenarFormularioProducto(productoData);
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto para actualizar.", "Error", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jtblProductosMouseClicked
-
-    private void jbProductoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbProductoEliminarActionPerformed
-        // Obtener el ID del usuario desde el label
-        String id = jtxtProductoIDActu.getText(); // Asegúrate de que este label contenga el ID correcto
-
-        // Verificar que el ID no esté vacío
-        if (id != null && !id.isEmpty()) {
-            // Confirmar la eliminación
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este producto?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                try {
-                    // Crear una instancia de UsuarioBO
-                    ProductosBO productoBO = new ProductosBO();
-                    // Llamar al método eliminar
-                    productoBO.eliminar(Integer.parseInt(id));
-                    // Mostrar un mensaje de éxito
-                    JOptionPane.showMessageDialog(this, "Producto eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    pestañas.setSelectedIndex(4);
-                    limpiarFormProductoActu();
-                    refreshTablaProductos();
-                } catch (NumberFormatException e) {
-                    // Manejar el caso donde el ID no es un número válido
-                    JOptionPane.showMessageDialog(this, "ID del producto no válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (Exception e) {
-                    // Manejar cualquier otra excepción que pueda ocurrir
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Error al eliminar el producto.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            // Manejar el caso donde el ID está vacío
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jbProductoEliminarActionPerformed
-
-    private void jbAsignaciónMostrarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAsignaciónMostrarListaActionPerformed
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
-            Statement st = con.createStatement();
-
-            String sql = "SELECT id_usuario, nombres, apellidos, dni, telefono, nom_usuario, rol FROM usuario";
-            ResultSet rs = st.executeQuery(sql);
-
-            while (rs.next()) {
-                String id = String.valueOf(rs.getInt("id_usuario"));
-                String nombres = rs.getString("nombres");
-                String apellidos = rs.getString("apellidos");
-                String dni = rs.getString("dni");
-                String telefono = rs.getString("telefono");
-                String nomUsuario = rs.getString("nom_usuario");
-                String rol = rs.getString("rol");
-
-                String tbData[] = {id, nombres, apellidos, dni, telefono, nomUsuario, rol};
-                DefaultTableModel tblModel = (DefaultTableModel) jtblUsuarios.getModel();
-
-                tblModel.addRow(tbData);
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-
-        }
-    }//GEN-LAST:event_jbAsignaciónMostrarListaActionPerformed
-
-    private void jcbReporteFechaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbReporteFechaItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            String ordenSeleccionado = jcbReporteFecha.getSelectedItem().toString();
-            DefaultTableModel tblModel = (DefaultTableModel) jtblReporteVentas.getModel();
-            tblModel.setRowCount(0); // Limpiar la tabla
-
-            // Conexión a la base de datos
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
-                Statement st = con.createStatement();
-
-                // Construcción de la consulta SQL
-                String sql = "SELECT b.fecha, u.nombres, COALESCE(SUM(p.precio), 0) + COALESCE(SUM(pc.precio), 0) AS precio_total "
-                        + "FROM boleta b "
-                        + "JOIN pedido pd ON b.id_pedido = pd.id_pedido "
-                        + "JOIN usuario u ON pd.id_usuario = u.id_usuario "
-                        + "LEFT JOIN productos p ON pd.id_producto = p.id_producto "
-                        + "LEFT JOIN plato_comida pc ON pd.id_plato = pc.id_plato "
-                        + "GROUP BY b.fecha, u.nombres ";
-
-                // Ordenar según la selección del ComboBox
-                if (ordenSeleccionado.equals("Más reciente")) {
-                    sql += "ORDER BY b.fecha DESC"; // Ordenar de más reciente a menos reciente
-                } else if (ordenSeleccionado.equals("Menos reciente")) {
-                    sql += "ORDER BY b.fecha ASC"; // Ordenar de menos reciente a más reciente
-                }
-
-                ResultSet rs = st.executeQuery(sql);
-
-                // Procesar los resultados
-                while (rs.next()) {
-                    String fecha = rs.getString("fecha");
-                    String nombreUsuario = rs.getString("nombres");
-                    String precioTotal = String.valueOf(rs.getDouble("precio_total"));
-
-                    String tbData[] = {fecha, nombreUsuario, precioTotal};
-
-                    // Agrega los datos a la tabla
-                    tblModel.addRow(tbData);
-                }
-                
-                // Actualizar el JTextField con el número de filas
-                jtxtReporteTotal.setText(String.valueOf(tblModel.getRowCount()));
-                
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-            }
-        }
-    }//GEN-LAST:event_jcbReporteFechaItemStateChanged
-
-    private void jcbReporteMeseroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbReporteMeseroItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            String nombreUsuarioSeleccionado = jcbReporteMesero.getSelectedItem().toString();
-            DefaultTableModel tblModel = (DefaultTableModel) jtblReporteVentas.getModel();
-            tblModel.setRowCount(0); // Limpiar la tabla
-
-            // Conexión a la base de datos
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
-                Statement st = con.createStatement();
-
-                // Construcción de la consulta SQL
-                String sql = "SELECT b.fecha, u.nombres, COALESCE(SUM(p.precio), 0) + COALESCE(SUM(pc.precio), 0) AS precio_total "
-                        + "FROM boleta b "
-                        + "JOIN pedido pd ON b.id_pedido = pd.id_pedido "
-                        + "JOIN usuario u ON pd.id_usuario = u.id_usuario "
-                        + "LEFT JOIN productos p ON pd.id_producto = p.id_producto "
-                        + "LEFT JOIN plato_comida pc ON pd.id_plato = pc.id_plato "
-                        + "WHERE u.nombres = ? " // Filtrar por nombre de usuario
-                        + "GROUP BY b.fecha, u.nombres";
-
-                // Usar PreparedStatement para evitar inyecciones SQL
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, nombreUsuarioSeleccionado); // Establecer el nombre de usuario seleccionado
-
-                ResultSet rs = pst.executeQuery();
-
-                // Procesar los resultados
-                while (rs.next()) {
-                    String fecha = rs.getString("fecha");
-                    String nombreUsuario = rs.getString("nombres");
-                    String precioTotal = String.valueOf(rs.getDouble("precio_total"));
-
-                    String tbData[] = {fecha, nombreUsuario, precioTotal};
-
-                    // Agrega los datos a la tabla
-                    tblModel.addRow(tbData);
-                }
-
-                // Actualizar el JTextField con el número de filas
-                jtxtReporteTotal.setText(String.valueOf(tblModel.getRowCount()));
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-            }
-        }
-    }//GEN-LAST:event_jcbReporteMeseroItemStateChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

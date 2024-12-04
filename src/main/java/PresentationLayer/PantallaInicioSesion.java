@@ -20,20 +20,23 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
 
         setLocationRelativeTo(null);
     }
+    // Conexion directa
 
-    //Autenticacion del usuario y la contraseña
+//Autenticacion del usuario y la contraseña
     private boolean authenticateUser(String nom_usuario, String contrasena) {
         try {
             Connection con = UConnection.getConnection(); // Llamada a la conexión
+            
             String sql = "SELECT * FROM usuario WHERE nom_usuario = ? AND contrasena = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nom_usuario);
             ps.setString(2, contrasena);
 
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();   
             return rs.next(); // Retorna true si encuentra un usuario que coincida
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos: " + e.getMessage(), 
+            "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -213,11 +216,6 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
 
     private void jb_ingresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_ingresarMousePressed
 
-        String Usuario, Password, query, fname = null, passDb = null;
-        String SUrl, SUser, SPass;
-        SUrl = "jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd";
-        SUser = "ulyfwrg1vfpqzj0x";
-        SPass = "84YlnLU1hjjP2sJdHtn7";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -267,7 +265,7 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(new JFrame(), "Nombre de usuario o contraseña incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
-                jpassword.setText("");
+
             }
 
         } catch (Exception e) {
@@ -323,30 +321,7 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_salirActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MeseroMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MeseroMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MeseroMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MeseroMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+     
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PantallaInicioSesion().setVisible(true);
