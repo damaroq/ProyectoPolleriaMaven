@@ -17,20 +17,23 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
 
         setLocationRelativeTo(null);
     }
+    // Conexion directa
 
-    //Autenticacion del usuario y la contraseña
+//Autenticacion del usuario y la contraseña
     private boolean authenticateUser(String nom_usuario, String contrasena) {
         try {
             Connection con = UConnection.getConnection(); // Llamada a la conexión
+            
             String sql = "SELECT * FROM usuario WHERE nom_usuario = ? AND contrasena = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nom_usuario);
             ps.setString(2, contrasena);
 
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();   
             return rs.next(); // Retorna true si encuentra un usuario que coincida
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos: " + e.getMessage(), 
+            "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -214,7 +217,8 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
 
         // Verificar la conexión a la base de datos
         if (!UConnection.testConnection()) {
-            JOptionPane.showMessageDialog(this, "Error de conexión a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error de conexión a la base de datos.",
+            "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -223,24 +227,23 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
         if (rol != null) {
             // Redirigir según el rol
             switch (rol) {
-                case "administrador":
+                case "administrador" -> {
                     // Abre el menú de administrador
+                    
                     AdministradorMenu administradorMenu = new AdministradorMenu();
                     administradorMenu.setVisible(true);
-                    break;
-                case "mesero":
+                }
+                case "mesero" -> {
                     // Abre el menú de mesero
                     MeseroMenu meseroMenu = new MeseroMenu();
                     meseroMenu.setVisible(true);
-                    break;
-                case "cajero":
+                }
+                case "cajero" -> {
                     // Abre el menú de cocinero
                     CajeroMenu cajeroMenu = new CajeroMenu();
                     cajeroMenu.setVisible(true);
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(this, "Rol no reconocido.", "Error", JOptionPane.ERROR_MESSAGE);
-                    break;
+                }
+                default -> JOptionPane.showMessageDialog(this, "Rol no reconocido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
             this.dispose(); // Cierra la ventana de inicio de sesión
         } else {
@@ -254,30 +257,7 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_salirActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MeseroMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MeseroMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MeseroMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MeseroMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+     
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PantallaInicioSesion().setVisible(true);

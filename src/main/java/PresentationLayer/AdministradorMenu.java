@@ -448,10 +448,20 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jcbUsuarioBuscarCat.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jcbUsuarioBuscarCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Nombres" }));
         jcbUsuarioBuscarCat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jcbUsuarioBuscarCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbUsuarioBuscarCatActionPerformed(evt);
+            }
+        });
         fondo_beige.add(jcbUsuarioBuscarCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 160, 30));
 
         jtxtUsuarioBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtUsuarioBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jtxtUsuarioBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtUsuarioBuscarActionPerformed(evt);
+            }
+        });
         fondo_beige.add(jtxtUsuarioBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 330, 30));
 
         jbUsuarioBuscar.setBackground(new java.awt.Color(254, 233, 119));
@@ -489,7 +499,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
             .addGroup(jpRolLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jlRol)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpRolLayout.setVerticalGroup(
             jpRolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -506,7 +516,12 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 jcbUsuarioRolItemStateChanged(evt);
             }
         });
-        fondo_beige.add(jcbUsuarioRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 160, 30));
+        jcbUsuarioRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbUsuarioRolActionPerformed(evt);
+            }
+        });
+        fondo_beige.add(jcbUsuarioRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 160, 30));
 
         jbUsuarioCrear.setBackground(new java.awt.Color(209, 32, 31));
         jbUsuarioCrear.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -2024,7 +2039,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
         }
         */
     }//GEN-LAST:event_jbEliminarAsignacionActionPerformed
-    /* ----- USUARIOS ----- */
+    /* ----- USUARIOS ----- .....*/
     private void jbUsuarioMostrarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioMostrarListaActionPerformed
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -2061,6 +2076,8 @@ public class AdministradorMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jbUsuarioLimpiarListaActionPerformed
 
     private void jbUsuarioBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioBuscarActionPerformed
+     
+       
         try {
             ArrayList<Usuario> usuarios = null;
             Usuario usuario = null;
@@ -2433,6 +2450,19 @@ public class AdministradorMenu extends javax.swing.JFrame {
         }
         */
     }//GEN-LAST:event_jcbFiltroAsignacionItemStateChanged
+
+    private void jcbUsuarioBuscarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUsuarioBuscarCatActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jcbUsuarioBuscarCatActionPerformed
+
+    private void jtxtUsuarioBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtUsuarioBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtUsuarioBuscarActionPerformed
+
+    private void jcbUsuarioRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUsuarioRolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbUsuarioRolActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
