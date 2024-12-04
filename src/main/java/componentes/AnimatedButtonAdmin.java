@@ -1,12 +1,10 @@
 package componentes;
 
-import static PresentationLayer.AdministradorMenu.btnAsignacion;
 import static PresentationLayer.AdministradorMenu.btnPlatosComida;
 import static PresentationLayer.AdministradorMenu.btnProductos;
 import static PresentationLayer.AdministradorMenu.btnSalir;
 import static PresentationLayer.AdministradorMenu.btnUsuarios;
 import static PresentationLayer.AdministradorMenu.btnVentas;
-import static PresentationLayer.AdministradorMenu.jlAsignacion;
 import static PresentationLayer.AdministradorMenu.jlPlatosComida;
 import static PresentationLayer.AdministradorMenu.jlProductos;
 import static PresentationLayer.AdministradorMenu.jlSalir;
@@ -32,7 +30,6 @@ public class AnimatedButtonAdmin {
         mostrarColor(btnUsuarios, btnUsuarios, jlUsuarios);
         establecColor(btnPlatosComida, btnPlatosComida, jlPlatosComida);
         establecColor(btnProductos, btnProductos, jlProductos);
-        establecColor(btnAsignacion, btnAsignacion, jlAsignacion);
         establecColor(btnVentas, btnVentas, jlVentas);
         establecColor(btnSalir, btnSalir, jlSalir);
     }
@@ -41,7 +38,6 @@ public class AnimatedButtonAdmin {
         mostrarColor(btnPlatosComida, btnPlatosComida, jlPlatosComida);
         establecColor(btnUsuarios, btnUsuarios, jlUsuarios);
         establecColor(btnProductos, btnProductos, jlProductos);
-        establecColor(btnAsignacion, btnAsignacion, jlAsignacion);
         establecColor(btnVentas, btnVentas, jlVentas);
         establecColor(btnSalir, btnSalir, jlSalir);
     }
@@ -50,16 +46,6 @@ public class AnimatedButtonAdmin {
         mostrarColor(btnProductos, btnProductos, jlProductos);
         establecColor(btnUsuarios, btnUsuarios, jlUsuarios);
         establecColor(btnPlatosComida, btnPlatosComida, jlPlatosComida);
-        establecColor(btnAsignacion, btnAsignacion, jlAsignacion);
-        establecColor(btnVentas, btnVentas, jlVentas);
-        establecColor(btnSalir, btnSalir, jlSalir);
-    }
-
-    public void AnimattAsignacion() {
-        mostrarColor(btnAsignacion, btnAsignacion, jlAsignacion);
-        establecColor(btnUsuarios, btnUsuarios, jlUsuarios);
-        establecColor(btnPlatosComida, btnPlatosComida, jlPlatosComida);
-        establecColor(btnProductos, btnProductos, jlProductos);
         establecColor(btnVentas, btnVentas, jlVentas);
         establecColor(btnSalir, btnSalir, jlSalir);
     }
@@ -69,7 +55,6 @@ public class AnimatedButtonAdmin {
         establecColor(btnUsuarios, btnUsuarios, jlUsuarios);
         establecColor(btnPlatosComida, btnPlatosComida, jlPlatosComida);
         establecColor(btnProductos, btnProductos, jlProductos);
-        establecColor(btnAsignacion, btnAsignacion, jlAsignacion);
         establecColor(btnSalir, btnSalir, jlSalir);
     }
 
@@ -78,7 +63,6 @@ public class AnimatedButtonAdmin {
         establecColor(btnUsuarios, btnUsuarios, jlUsuarios);
         establecColor(btnPlatosComida, btnPlatosComida, jlPlatosComida);
         establecColor(btnProductos, btnProductos, jlProductos);
-        establecColor(btnAsignacion, btnAsignacion, jlAsignacion);
         establecColor(btnVentas, btnVentas, jlVentas);
     }
 }

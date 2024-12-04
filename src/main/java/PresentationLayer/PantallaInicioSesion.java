@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class PantallaInicioSesion extends javax.swing.JFrame {
@@ -212,43 +215,104 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_ingresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_ingresarMousePressed
-        String nom_usuario = jtxtUsuario.getText();
+
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
+
+            if ("".equals(jtxtUsuario.getText())) {
+                JOptionPane.showMessageDialog(new JFrame(), "Debe ingresar su nombre de usuario", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else if ("".equals(jpassword.getText())) {
+                JOptionPane.showMessageDialog(new JFrame(), "Debe ingresar su contraseña", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else {
+                Usuario = jtxtUsuario.getText();
+                Password = jpassword.getText();
+
+                // Usando PreparedStatement para evitar inyección SQL
+                String sql = "SELECT rol, contrasena FROM usuario WHERE nom_usuario = ? AND contrasena = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, Usuario);
+                pst.setString(2, Password);
+                ResultSet rs = pst.executeQuery();
+
+                if (rs.next()) {
+                    String rol = rs.getString("rol");
+                    passDb = rs.getString("contrasena"); // Asegúrate de que el nombre de la columna sea correcto
+
+                    // Redirigir según el rol
+                    switch (rol) {
+                        case "administrador":
+                            AdministradorMenu administradorMenu = new AdministradorMenu();
+                            administradorMenu.setVisible(true);
+                            break;
+                        case "mesero":
+                            MeseroMenu meseroMenu = new MeseroMenu();
+                            meseroMenu.setVisible(true);
+                            break;
+                        case "cajero":
+                            CajeroMenu cajeroMenu = new CajeroMenu();
+                            cajeroMenu.setVisible(true);
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(this, "Rol no reconocido.", "Error", JOptionPane.ERROR_MESSAGE);
+                            break;
+                    }
+                    this.dispose(); // Cierra la ventana de inicio de sesión
+                } else {
+                    JOptionPane.showMessageDialog(new JFrame(), "Nombre de usuario o contraseña incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error!:" + e.getMessage());
+        }
+
+        /*String nom_usuario = jtxtUsuario.getText();
         String contrasena = new String(jpassword.getPassword());
 
-        // Verificar la conexión a la base de datos
-        if (!UConnection.testConnection()) {
-            JOptionPane.showMessageDialog(this, "Error de conexión a la base de datos.",
-            "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
+            Statement st = con.createStatement();
 
-        String rol = UConnection.getUserRole(nom_usuario, contrasena);
-
-        if (rol != null) {
-            // Redirigir según el rol
-            switch (rol) {
-                case "administrador" -> {
-                    // Abre el menú de administrador
-                    
-                    AdministradorMenu administradorMenu = new AdministradorMenu();
-                    administradorMenu.setVisible(true);
+            String rol = UConnection.getUserRole(nom_usuario, contrasena);
+            
+            if (rol != null) {
+                // Redirigir según el rol
+                switch (rol) {
+                    case "administrador":
+                        // Abre el menú de administrador
+                        AdministradorMenu administradorMenu = new AdministradorMenu();
+                        administradorMenu.setVisible(true);
+                        break;
+                    case "mesero":
+                        // Abre el menú de mesero
+                        MeseroMenu meseroMenu = new MeseroMenu();
+                        meseroMenu.setVisible(true);
+                        break;
+                    case "cajero":
+                        // Abre el menú de cocinero
+                        CajeroMenu cajeroMenu = new CajeroMenu();
+                        cajeroMenu.setVisible(true);
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(this, "Rol no reconocido.", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
                 }
-                case "mesero" -> {
-                    // Abre el menú de mesero
-                    MeseroMenu meseroMenu = new MeseroMenu();
-                    meseroMenu.setVisible(true);
-                }
-                case "cajero" -> {
-                    // Abre el menú de cocinero
-                    CajeroMenu cajeroMenu = new CajeroMenu();
-                    cajeroMenu.setVisible(true);
-                }
-                default -> JOptionPane.showMessageDialog(this, "Rol no reconocido.", "Error", JOptionPane.ERROR_MESSAGE);
+                this.dispose(); // Cierra la ventana de inicio de sesión
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            this.dispose(); // Cierra la ventana de inicio de sesión
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }*/
     }//GEN-LAST:event_jb_ingresarMousePressed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed

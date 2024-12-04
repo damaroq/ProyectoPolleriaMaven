@@ -16,6 +16,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -23,7 +24,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class AdministradorMenu extends javax.swing.JFrame {
@@ -37,7 +41,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
     // [6] - Asignación Meseros
     // [7] - Reporte de Ventas
     RellenarCombos re = new RellenarCombos();
-    
+
     private final String logo_usuario = "/icons/users.png";
     private final String logo_platos = "/icons/platos.png";
     private final String logo_productos = "/icons/productos.png";
@@ -53,10 +57,12 @@ public class AdministradorMenu extends javax.swing.JFrame {
         pestañas.setEnabledAt(0, false);
         setLocationRelativeTo(null);
         ColorOP.AnimattUsuarios();
-        
+
         re.RellenarComboBox("mesas", "id_mesa", jcbNumMesa);
         re.RellenarComboBox("usuario", "nombres", jcbNombreMesero);
+        re.RellenarComboBoxMeseros("usuario", "nombres", jcbReporteMesero, "mesero");
         re.RellenarComboBox("usuario", "nombres", jcbFiltroAsignacion);
+        re.RellenarComboBox("plato_comida", "categoria", jcbPlatosCat);
 
         jtblUsuarios.getTableHeader().setFont(new Font("Poppins", Font.BOLD, 14));
         jtblUsuarios.getTableHeader().setForeground(Color.BLACK);
@@ -112,8 +118,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jlPlatosComida = new javax.swing.JLabel();
         btnProductos = new componentes.PanelGradient();
         jlProductos = new javax.swing.JLabel();
-        btnAsignacion = new componentes.PanelGradient();
-        jlAsignacion = new javax.swing.JLabel();
         pestañas = new javax.swing.JTabbedPane();
         page_usuarios = new javax.swing.JPanel();
         fondo_beige = new componentes.PanelRound();
@@ -128,33 +132,31 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jlRol = new javax.swing.JLabel();
         jcbUsuarioRol = new javax.swing.JComboBox<>();
         jbUsuarioCrear = new javax.swing.JButton();
-        jbUsuarioEliminar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jtblUsuarios = new javax.swing.JTable();
         jbUsuarioMostrarLista = new javax.swing.JButton();
         jbUsuarioLimpiarLista = new javax.swing.JButton();
-        jbUsuarioActualizar = new javax.swing.JButton();
         page_usuariosFormulario = new javax.swing.JPanel();
         fondo_beige4 = new componentes.PanelRound();
-        jpFormulario = new componentes.PanelRound();
-        jlFormulario = new javax.swing.JLabel();
+        jpFormularioActu = new componentes.PanelRound();
+        jlFormularioActu = new javax.swing.JLabel();
         jlNombres = new javax.swing.JLabel();
         jtxtNombres = new javax.swing.JTextField();
-        jlApellidos = new javax.swing.JLabel();
+        jlApellidosActu = new javax.swing.JLabel();
         jtxtApellidos = new javax.swing.JTextField();
-        jlDNI = new javax.swing.JLabel();
+        jlDNIActu = new javax.swing.JLabel();
         jtxtDNI = new javax.swing.JTextField();
-        jlTelefono = new javax.swing.JLabel();
+        jlTelefonoActu = new javax.swing.JLabel();
         jtxtTelefono = new javax.swing.JTextField();
-        jlNomUsuario = new javax.swing.JLabel();
+        jlNomUsuarioActu = new javax.swing.JLabel();
         jtxtNomUsuario = new javax.swing.JTextField();
-        jlFormularioRol = new javax.swing.JLabel();
+        jlFormularioRolActu = new javax.swing.JLabel();
         jcbFormularioRol = new javax.swing.JComboBox<>();
         jbUsuarioGuardar = new javax.swing.JButton();
         jbUsuarioCancelar = new javax.swing.JButton();
-        jlNombres1 = new javax.swing.JLabel();
+        jlNombresActu = new javax.swing.JLabel();
         jtxtUsuarioID = new javax.swing.JTextField();
-        jlContra = new javax.swing.JLabel();
+        jlContra2 = new javax.swing.JLabel();
         jtxtContra = new javax.swing.JPasswordField();
         page_platosComida = new javax.swing.JPanel();
         fondo_beige5 = new componentes.PanelRound();
@@ -169,12 +171,10 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jlPlatosCat = new javax.swing.JLabel();
         jcbPlatosCat = new javax.swing.JComboBox<>();
         jbPlatosCrear = new javax.swing.JButton();
-        jbPlatosEliminar = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         jtblPlatosComida = new javax.swing.JTable();
         jbPlatosMostrarLista = new javax.swing.JButton();
         jbPlatosListaLimpiar = new javax.swing.JButton();
-        jbPlatosActualizar = new javax.swing.JButton();
         page_platosComidaFormulario = new javax.swing.JPanel();
         fondo_beige6 = new componentes.PanelRound();
         jpFormPlatos = new componentes.PanelRound();
@@ -205,12 +205,10 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jlProductosCat = new javax.swing.JLabel();
         jcbProductosCat = new javax.swing.JComboBox<>();
         jbProductoCrear = new javax.swing.JButton();
-        jbProductoEliminar = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         jtblProductos = new javax.swing.JTable();
         jbProductosMostrarLista = new javax.swing.JButton();
         jbProductosLimpiar = new javax.swing.JButton();
-        jbProductosActualizar = new javax.swing.JButton();
         page_productosFormulario = new javax.swing.JPanel();
         fondo_beige7 = new componentes.PanelRound();
         jpProductoFormulario = new componentes.PanelRound();
@@ -247,6 +245,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         jtblAsignacion = new javax.swing.JTable();
         jbEliminarAsignacion = new javax.swing.JButton();
+        jbAsignaciónMostrarLista = new javax.swing.JButton();
         page_reporteVentas = new javax.swing.JPanel();
         fondo_beige2 = new componentes.PanelRound();
         jpTituloReporte = new componentes.PanelRound();
@@ -255,9 +254,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jpReporteFecha = new componentes.PanelRound();
         jlReporteFecha = new javax.swing.JLabel();
         jcbReporteFecha = new javax.swing.JComboBox<>();
-        jpReporteMesas = new componentes.PanelRound();
-        jlReporteMesas = new javax.swing.JLabel();
-        jcbReporteMesas = new javax.swing.JComboBox<>();
         jpReporteMesero = new componentes.PanelRound();
         jlReporteMesero = new javax.swing.JLabel();
         jcbReporteMesero = new javax.swing.JComboBox<>();
@@ -265,12 +261,69 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jtblReporteVentas = new javax.swing.JTable();
         jlReporteTotal = new javax.swing.JLabel();
         jtxtReporteTotal = new javax.swing.JTextField();
+        page_usuariosFormularioActu = new javax.swing.JPanel();
+        fondo_beige8 = new componentes.PanelRound();
+        jpFormulario1 = new componentes.PanelRound();
+        jlFormulario1 = new javax.swing.JLabel();
+        jlNombres2 = new javax.swing.JLabel();
+        jtxtNombresActu = new javax.swing.JTextField();
+        jlApellidos1 = new javax.swing.JLabel();
+        jtxtApellidosActu = new javax.swing.JTextField();
+        jlDNI1 = new javax.swing.JLabel();
+        jtxtDNIActu = new javax.swing.JTextField();
+        jlTelefono1 = new javax.swing.JLabel();
+        jtxtTelefonoActu = new javax.swing.JTextField();
+        jlNomUsuario1 = new javax.swing.JLabel();
+        jtxtNomUsuarioActu = new javax.swing.JTextField();
+        jlFormularioRol1 = new javax.swing.JLabel();
+        jcbFormularioRolActu = new javax.swing.JComboBox<>();
+        jbUsuarioGuardarActu = new javax.swing.JButton();
+        jbUsuarioCancelarActu = new javax.swing.JButton();
+        jlNombres3 = new javax.swing.JLabel();
+        jtxtUsuarioIDActu = new javax.swing.JTextField();
+        jbUsuarioEliminar = new javax.swing.JButton();
+        page_platosComidaFormularioActu = new javax.swing.JPanel();
+        fondo_beige9 = new componentes.PanelRound();
+        jpFormPlatos1 = new componentes.PanelRound();
+        jlFormPlatos1 = new javax.swing.JLabel();
+        jlNombre1 = new javax.swing.JLabel();
+        jtxtPlatoNombreActu = new javax.swing.JTextField();
+        jlDescripcion1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtxtPlatoDescripcionActu = new javax.swing.JTextArea();
+        jlPrecio1 = new javax.swing.JLabel();
+        jtxtPlatoPrecioActu = new javax.swing.JTextField();
+        jlCategoria1 = new javax.swing.JLabel();
+        jcbPlatosFormCatActu = new javax.swing.JComboBox<>();
+        jbPlatosGuardarActu = new javax.swing.JButton();
+        jbPlatosCancelarActu = new javax.swing.JButton();
+        jlPlatoID1 = new javax.swing.JLabel();
+        jtxtPlatoIDActu = new javax.swing.JTextField();
+        jbPlatosEliminar = new javax.swing.JButton();
+        page_productosFormularioActu = new javax.swing.JPanel();
+        fondo_beige10 = new componentes.PanelRound();
+        jpProductoFormulario1 = new componentes.PanelRound();
+        jlProductoFormulario1 = new javax.swing.JLabel();
+        jlProductoNombre1 = new javax.swing.JLabel();
+        jtxtProductoNombreActu = new javax.swing.JTextField();
+        jlProductoDetalle1 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jtxtProductoDetalleActu = new javax.swing.JTextArea();
+        jlProductoCategoria1 = new javax.swing.JLabel();
+        jcbProductoFormCatActu = new javax.swing.JComboBox<>();
+        jlProductoCantidad1 = new javax.swing.JLabel();
+        jtxtProductoCantidadActu = new javax.swing.JSpinner();
+        jlProductoPrecio1 = new javax.swing.JLabel();
+        jtxtProductoPrecioActu = new javax.swing.JTextField();
+        jbProductoGuardarActu = new javax.swing.JButton();
+        jbProductoCancelarActu = new javax.swing.JButton();
+        jtxtProductoIDActu = new javax.swing.JTextField();
+        jlProductoID1 = new javax.swing.JLabel();
+        jbProductoEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1050, 545));
         setMinimumSize(new java.awt.Dimension(1050, 545));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1050, 545));
         setResizable(false);
         setSize(new java.awt.Dimension(1050, 545));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -312,7 +365,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jlVentas.setText("VENTAS");
         btnVentas.add(jlVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 130, 30));
 
-        menu.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 130, 50));
+        menu.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 130, 50));
 
         btnUsuarios.setRadius(10);
         btnUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -383,22 +436,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
         btnProductos.add(jlProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 130, 30));
 
         menu.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 130, 50));
-
-        btnAsignacion.setRadius(10);
-        btnAsignacion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnAsignacionMousePressed(evt);
-            }
-        });
-        btnAsignacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jlAsignacion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jlAsignacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlAsignacion.setIcon(getIcono(logo_asignacion));
-        jlAsignacion.setText("ASIGNACIÓN");
-        btnAsignacion.add(jlAsignacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 130, 30));
-
-        menu.add(btnAsignacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 130, 50));
 
         getContentPane().add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 550));
 
@@ -521,7 +558,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 jcbUsuarioRolActionPerformed(evt);
             }
         });
-        fondo_beige.add(jcbUsuarioRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 160, 30));
 
         jbUsuarioCrear.setBackground(new java.awt.Color(209, 32, 31));
         jbUsuarioCrear.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -535,22 +571,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 jbUsuarioCrearActionPerformed(evt);
             }
         });
-        fondo_beige.add(jbUsuarioCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 210, 30));
-
-        jbUsuarioEliminar.setBackground(new java.awt.Color(63, 92, 112));
-        jbUsuarioEliminar.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jbUsuarioEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        jbUsuarioEliminar.setText("ELIMINAR USUARIO");
-        jbUsuarioEliminar.setBorder(null);
-        jbUsuarioEliminar.setFocusPainted(false);
-        jbUsuarioEliminar.setFocusable(false);
-        jbUsuarioEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jbUsuarioEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbUsuarioEliminarActionPerformed(evt);
-            }
-        });
-        fondo_beige.add(jbUsuarioEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, 210, 30));
+        fondo_beige.add(jbUsuarioCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 120, 210, 30));
 
         jtblUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -567,6 +588,11 @@ public class AdministradorMenu extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jtblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblUsuariosMouseClicked(evt);
             }
         });
         jScrollPane4.setViewportView(jtblUsuarios);
@@ -601,18 +627,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
         });
         fondo_beige.add(jbUsuarioLimpiarLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, -1));
 
-        jbUsuarioActualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jbUsuarioActualizar.setText("ACTUALIZAR USUARIO");
-        jbUsuarioActualizar.setBorder(null);
-        jbUsuarioActualizar.setFocusable(false);
-        jbUsuarioActualizar.setRequestFocusEnabled(false);
-        jbUsuarioActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbUsuarioActualizarActionPerformed(evt);
-            }
-        });
-        fondo_beige.add(jbUsuarioActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 170, 210, 30));
-
         page_usuarios.add(fondo_beige, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
 
         pestañas.addTab("", page_usuarios);
@@ -627,34 +641,34 @@ public class AdministradorMenu extends javax.swing.JFrame {
         fondo_beige4.setRoundTopRight(50);
         fondo_beige4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jpFormulario.setBackground(new java.awt.Color(0, 0, 0));
-        jpFormulario.setRoundBottomLeft(50);
-        jpFormulario.setRoundBottomRight(50);
-        jpFormulario.setRoundTopLeft(50);
-        jpFormulario.setRoundTopRight(50);
+        jpFormularioActu.setBackground(new java.awt.Color(0, 0, 0));
+        jpFormularioActu.setRoundBottomLeft(50);
+        jpFormularioActu.setRoundBottomRight(50);
+        jpFormularioActu.setRoundTopLeft(50);
+        jpFormularioActu.setRoundTopRight(50);
 
-        jlFormulario.setBackground(new java.awt.Color(255, 255, 255));
-        jlFormulario.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jlFormulario.setForeground(new java.awt.Color(255, 255, 255));
-        jlFormulario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlFormulario.setText("FORMULARIO DE USUARIO");
-        jlFormulario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jlFormularioActu.setBackground(new java.awt.Color(255, 255, 255));
+        jlFormularioActu.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jlFormularioActu.setForeground(new java.awt.Color(255, 255, 255));
+        jlFormularioActu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlFormularioActu.setText("FORMULARIO DE USUARIO");
+        jlFormularioActu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout jpFormularioLayout = new javax.swing.GroupLayout(jpFormulario);
-        jpFormulario.setLayout(jpFormularioLayout);
-        jpFormularioLayout.setHorizontalGroup(
-            jpFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpFormularioLayout.createSequentialGroup()
+        javax.swing.GroupLayout jpFormularioActuLayout = new javax.swing.GroupLayout(jpFormularioActu);
+        jpFormularioActu.setLayout(jpFormularioActuLayout);
+        jpFormularioActuLayout.setHorizontalGroup(
+            jpFormularioActuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFormularioActuLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jlFormulario)
+                .addComponent(jlFormularioActu)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jpFormularioLayout.setVerticalGroup(
-            jpFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        jpFormularioActuLayout.setVerticalGroup(
+            jpFormularioActuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlFormularioActu, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
-        fondo_beige4.add(jpFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 35));
+        fondo_beige4.add(jpFormularioActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 35));
 
         jlNombres.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jlNombres.setText("NOMBRES:");
@@ -663,37 +677,37 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jtxtNombres.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         fondo_beige4.add(jtxtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 280, 30));
 
-        jlApellidos.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jlApellidos.setText("APELLIDOS:");
-        fondo_beige4.add(jlApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, 30));
+        jlApellidosActu.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlApellidosActu.setText("APELLIDOS:");
+        fondo_beige4.add(jlApellidosActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, 30));
 
         jtxtApellidos.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         fondo_beige4.add(jtxtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 280, 30));
 
-        jlDNI.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jlDNI.setText("DNI:");
-        fondo_beige4.add(jlDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, 30));
+        jlDNIActu.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlDNIActu.setText("DNI:");
+        fondo_beige4.add(jlDNIActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, 30));
 
         jtxtDNI.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         fondo_beige4.add(jtxtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 280, 30));
 
-        jlTelefono.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jlTelefono.setText("TELÉFONO:");
-        fondo_beige4.add(jlTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, 30));
+        jlTelefonoActu.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlTelefonoActu.setText("TELÉFONO:");
+        fondo_beige4.add(jlTelefonoActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, 30));
 
         jtxtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         fondo_beige4.add(jtxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 280, 30));
 
-        jlNomUsuario.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jlNomUsuario.setText("NOMBRE DE USUARIO:");
-        fondo_beige4.add(jlNomUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, 30));
+        jlNomUsuarioActu.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlNomUsuarioActu.setText("NOMBRE DE USUARIO:");
+        fondo_beige4.add(jlNomUsuarioActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, 30));
 
         jtxtNomUsuario.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         fondo_beige4.add(jtxtNomUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 280, 30));
 
-        jlFormularioRol.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jlFormularioRol.setText("ROL:");
-        fondo_beige4.add(jlFormularioRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 410, -1, 30));
+        jlFormularioRolActu.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlFormularioRolActu.setText("ROL:");
+        fondo_beige4.add(jlFormularioRolActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 410, -1, 30));
 
         jcbFormularioRol.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jcbFormularioRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "administrador", "cajero", "mesero" }));
@@ -729,17 +743,17 @@ public class AdministradorMenu extends javax.swing.JFrame {
         });
         fondo_beige4.add(jbUsuarioCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 150, 40));
 
-        jlNombres1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jlNombres1.setText("ID:");
-        fondo_beige4.add(jlNombres1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, 30));
+        jlNombresActu.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlNombresActu.setText("ID:");
+        fondo_beige4.add(jlNombresActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, 30));
 
         jtxtUsuarioID.setEditable(false);
         jtxtUsuarioID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         fondo_beige4.add(jtxtUsuarioID, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 280, 30));
 
-        jlContra.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jlContra.setText("CONTRASEÑA:");
-        fondo_beige4.add(jlContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, -1, 30));
+        jlContra2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlContra2.setText("CONTRASEÑA:");
+        fondo_beige4.add(jlContra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, -1, 30));
 
         jtxtContra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         fondo_beige4.add(jtxtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, 280, 30));
@@ -867,22 +881,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 jbPlatosCrearActionPerformed(evt);
             }
         });
-        fondo_beige5.add(jbPlatosCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 260, 30));
-
-        jbPlatosEliminar.setBackground(new java.awt.Color(63, 92, 112));
-        jbPlatosEliminar.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jbPlatosEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        jbPlatosEliminar.setText("ELIMINAR PLATO DE COMIDA");
-        jbPlatosEliminar.setBorder(null);
-        jbPlatosEliminar.setFocusPainted(false);
-        jbPlatosEliminar.setFocusable(false);
-        jbPlatosEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jbPlatosEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbPlatosEliminarActionPerformed(evt);
-            }
-        });
-        fondo_beige5.add(jbPlatosEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, 260, 30));
+        fondo_beige5.add(jbPlatosCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 120, 260, 30));
 
         jtblPlatosComida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -900,6 +899,11 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtblPlatosComida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblPlatosComidaMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(jtblPlatosComida);
 
         fondo_beige5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 790, 260));
@@ -913,7 +917,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 jbPlatosMostrarListaActionPerformed(evt);
             }
         });
-        fondo_beige5.add(jbPlatosMostrarLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, -1));
+        fondo_beige5.add(jbPlatosMostrarLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, -1, -1));
 
         jbPlatosListaLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbPlatosListaLimpiar.setText("Limpiar");
@@ -924,19 +928,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 jbPlatosListaLimpiarActionPerformed(evt);
             }
         });
-        fondo_beige5.add(jbPlatosListaLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, -1));
-
-        jbPlatosActualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jbPlatosActualizar.setText("ACTUALIZAR PLATO DE COMIDA");
-        jbPlatosActualizar.setBorder(null);
-        jbPlatosActualizar.setFocusable(false);
-        jbPlatosActualizar.setRequestFocusEnabled(false);
-        jbPlatosActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbPlatosActualizarActionPerformed(evt);
-            }
-        });
-        fondo_beige5.add(jbPlatosActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 170, 260, 30));
+        fondo_beige5.add(jbPlatosListaLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, -1, -1));
 
         page_platosComida.add(fondo_beige5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
 
@@ -1174,22 +1166,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 jbProductoCrearActionPerformed(evt);
             }
         });
-        fondo_beige1.add(jbProductoCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 210, 30));
-
-        jbProductoEliminar.setBackground(new java.awt.Color(63, 92, 112));
-        jbProductoEliminar.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jbProductoEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        jbProductoEliminar.setText("ELIMINAR PRODUCTO");
-        jbProductoEliminar.setBorder(null);
-        jbProductoEliminar.setFocusPainted(false);
-        jbProductoEliminar.setFocusable(false);
-        jbProductoEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jbProductoEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbProductoEliminarActionPerformed(evt);
-            }
-        });
-        fondo_beige1.add(jbProductoEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, 210, 30));
+        fondo_beige1.add(jbProductoCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, 210, 30));
 
         jtblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1205,6 +1182,11 @@ public class AdministradorMenu extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jtblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblProductosMouseClicked(evt);
             }
         });
         jScrollPane6.setViewportView(jtblProductos);
@@ -1232,18 +1214,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
             }
         });
         fondo_beige1.add(jbProductosLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, -1));
-
-        jbProductosActualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jbProductosActualizar.setText("ACTUALIZAR PRODUCTO");
-        jbProductosActualizar.setBorder(null);
-        jbProductosActualizar.setFocusable(false);
-        jbProductosActualizar.setRequestFocusEnabled(false);
-        jbProductosActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbProductosActualizarActionPerformed(evt);
-            }
-        });
-        fondo_beige1.add(jbProductosActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 170, 210, 30));
 
         page_productos.add(fondo_beige1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
 
@@ -1518,6 +1488,17 @@ public class AdministradorMenu extends javax.swing.JFrame {
         });
         fondo_beige3.add(jbEliminarAsignacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 180, 30));
 
+        jbAsignaciónMostrarLista.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbAsignaciónMostrarLista.setText("Mostrar");
+        jbAsignaciónMostrarLista.setFocusable(false);
+        jbAsignaciónMostrarLista.setRequestFocusEnabled(false);
+        jbAsignaciónMostrarLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAsignaciónMostrarListaActionPerformed(evt);
+            }
+        });
+        fondo_beige3.add(jbAsignaciónMostrarLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, -1, -1));
+
         page_asignacion.add(fondo_beige3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
 
         pestañas.addTab("", page_asignacion);
@@ -1592,38 +1573,12 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jcbReporteFecha.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jcbReporteFecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Más reciente", "Menos reciente" }));
         jcbReporteFecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jcbReporteFecha.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbReporteFechaItemStateChanged(evt);
+            }
+        });
         fondo_beige2.add(jcbReporteFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 160, 30));
-
-        jpReporteMesas.setBackground(new java.awt.Color(254, 233, 119));
-        jpReporteMesas.setRoundBottomLeft(30);
-        jpReporteMesas.setRoundBottomRight(30);
-        jpReporteMesas.setRoundTopLeft(30);
-        jpReporteMesas.setRoundTopRight(30);
-
-        jlReporteMesas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlReporteMesas.setText("MESAS");
-        jlReporteMesas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout jpReporteMesasLayout = new javax.swing.GroupLayout(jpReporteMesas);
-        jpReporteMesas.setLayout(jpReporteMesasLayout);
-        jpReporteMesasLayout.setHorizontalGroup(
-            jpReporteMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpReporteMesasLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jlReporteMesas)
-                .addContainerGap(37, Short.MAX_VALUE))
-        );
-        jpReporteMesasLayout.setVerticalGroup(
-            jpReporteMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlReporteMesas, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
-
-        fondo_beige2.add(jpReporteMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, 120, 30));
-
-        jcbReporteMesas.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jcbReporteMesas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "..." }));
-        jcbReporteMesas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        fondo_beige2.add(jcbReporteMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 160, 30));
 
         jpReporteMesero.setBackground(new java.awt.Color(254, 233, 119));
         jpReporteMesero.setRoundBottomLeft(30);
@@ -1649,23 +1604,28 @@ public class AdministradorMenu extends javax.swing.JFrame {
             .addComponent(jlReporteMesero, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        fondo_beige2.add(jpReporteMesero, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 120, 30));
+        fondo_beige2.add(jpReporteMesero, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 120, 30));
 
         jcbReporteMesero.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jcbReporteMesero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Evan", "Juan", "Maria", "Axeel" }));
         jcbReporteMesero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        fondo_beige2.add(jcbReporteMesero, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 240, 30));
+        jcbReporteMesero.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbReporteMeseroItemStateChanged(evt);
+            }
+        });
+        fondo_beige2.add(jcbReporteMesero, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 240, 30));
 
         jtblReporteVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "FECHA", "N° DE MESA", "MESERO", "PRECIO TOTAL"
+                "FECHA", "MESERO", "PRECIO TOTAL"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1691,6 +1651,413 @@ public class AdministradorMenu extends javax.swing.JFrame {
 
         pestañas.addTab("", page_reporteVentas);
 
+        page_usuariosFormularioActu.setBackground(new java.awt.Color(255, 125, 14));
+        page_usuariosFormularioActu.setMaximumSize(new java.awt.Dimension(1050, 545));
+        page_usuariosFormularioActu.setMinimumSize(new java.awt.Dimension(1050, 545));
+        page_usuariosFormularioActu.setPreferredSize(new java.awt.Dimension(1050, 545));
+        page_usuariosFormularioActu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fondo_beige8.setBackground(new java.awt.Color(255, 253, 247));
+        fondo_beige8.setRoundBottomLeft(50);
+        fondo_beige8.setRoundBottomRight(50);
+        fondo_beige8.setRoundTopLeft(50);
+        fondo_beige8.setRoundTopRight(50);
+        fondo_beige8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jpFormulario1.setBackground(new java.awt.Color(0, 0, 0));
+        jpFormulario1.setRoundBottomLeft(50);
+        jpFormulario1.setRoundBottomRight(50);
+        jpFormulario1.setRoundTopLeft(50);
+        jpFormulario1.setRoundTopRight(50);
+
+        jlFormulario1.setBackground(new java.awt.Color(255, 255, 255));
+        jlFormulario1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jlFormulario1.setForeground(new java.awt.Color(255, 255, 255));
+        jlFormulario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlFormulario1.setText("FORMULARIO DE USUARIO");
+        jlFormulario1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jpFormulario1Layout = new javax.swing.GroupLayout(jpFormulario1);
+        jpFormulario1.setLayout(jpFormulario1Layout);
+        jpFormulario1Layout.setHorizontalGroup(
+            jpFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFormulario1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jlFormulario1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpFormulario1Layout.setVerticalGroup(
+            jpFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlFormulario1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        fondo_beige8.add(jpFormulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 35));
+
+        jlNombres2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlNombres2.setText("NOMBRES:");
+        fondo_beige8.add(jlNombres2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, 30));
+
+        jtxtNombresActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        fondo_beige8.add(jtxtNombresActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 280, 30));
+
+        jlApellidos1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlApellidos1.setText("APELLIDOS:");
+        fondo_beige8.add(jlApellidos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, 30));
+
+        jtxtApellidosActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        fondo_beige8.add(jtxtApellidosActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 280, 30));
+
+        jlDNI1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlDNI1.setText("DNI:");
+        fondo_beige8.add(jlDNI1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, -1, 30));
+
+        jtxtDNIActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        fondo_beige8.add(jtxtDNIActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 280, 30));
+
+        jlTelefono1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlTelefono1.setText("TELÉFONO:");
+        fondo_beige8.add(jlTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, 30));
+
+        jtxtTelefonoActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        fondo_beige8.add(jtxtTelefonoActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 280, 30));
+
+        jlNomUsuario1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlNomUsuario1.setText("NOMBRE DE USUARIO:");
+        fondo_beige8.add(jlNomUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, 30));
+
+        jtxtNomUsuarioActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        fondo_beige8.add(jtxtNomUsuarioActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 280, 30));
+
+        jlFormularioRol1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlFormularioRol1.setText("ROL:");
+        fondo_beige8.add(jlFormularioRol1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, -1, 30));
+
+        jcbFormularioRolActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jcbFormularioRolActu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "administrador", "cajero", "mesero" }));
+        fondo_beige8.add(jcbFormularioRolActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 280, 30));
+
+        jbUsuarioGuardarActu.setBackground(new java.awt.Color(209, 32, 31));
+        jbUsuarioGuardarActu.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbUsuarioGuardarActu.setForeground(new java.awt.Color(255, 255, 255));
+        jbUsuarioGuardarActu.setText("GUARDAR");
+        jbUsuarioGuardarActu.setBorder(null);
+        jbUsuarioGuardarActu.setFocusPainted(false);
+        jbUsuarioGuardarActu.setFocusable(false);
+        jbUsuarioGuardarActu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbUsuarioGuardarActu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbUsuarioGuardarActuActionPerformed(evt);
+            }
+        });
+        fondo_beige8.add(jbUsuarioGuardarActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 150, 40));
+
+        jbUsuarioCancelarActu.setBackground(new java.awt.Color(63, 92, 112));
+        jbUsuarioCancelarActu.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbUsuarioCancelarActu.setForeground(new java.awt.Color(255, 255, 255));
+        jbUsuarioCancelarActu.setText("CANCELAR");
+        jbUsuarioCancelarActu.setBorder(null);
+        jbUsuarioCancelarActu.setFocusPainted(false);
+        jbUsuarioCancelarActu.setFocusable(false);
+        jbUsuarioCancelarActu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbUsuarioCancelarActu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbUsuarioCancelarActuActionPerformed(evt);
+            }
+        });
+        fondo_beige8.add(jbUsuarioCancelarActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 150, 40));
+
+        jlNombres3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlNombres3.setText("ID:");
+        fondo_beige8.add(jlNombres3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, 30));
+
+        jtxtUsuarioIDActu.setEditable(false);
+        jtxtUsuarioIDActu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fondo_beige8.add(jtxtUsuarioIDActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 280, 30));
+
+        jbUsuarioEliminar.setBackground(new java.awt.Color(63, 92, 112));
+        jbUsuarioEliminar.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jbUsuarioEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        jbUsuarioEliminar.setText("ELIMINAR");
+        jbUsuarioEliminar.setBorder(null);
+        jbUsuarioEliminar.setFocusPainted(false);
+        jbUsuarioEliminar.setFocusable(false);
+        jbUsuarioEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbUsuarioEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbUsuarioEliminarActionPerformed(evt);
+            }
+        });
+        fondo_beige8.add(jbUsuarioEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 160, 150, 40));
+
+        page_usuariosFormularioActu.add(fondo_beige8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
+
+        pestañas.addTab("", page_usuariosFormularioActu);
+
+        page_platosComidaFormularioActu.setBackground(new java.awt.Color(255, 125, 14));
+        page_platosComidaFormularioActu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fondo_beige9.setBackground(new java.awt.Color(255, 253, 247));
+        fondo_beige9.setRoundBottomLeft(50);
+        fondo_beige9.setRoundBottomRight(50);
+        fondo_beige9.setRoundTopLeft(50);
+        fondo_beige9.setRoundTopRight(50);
+        fondo_beige9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jpFormPlatos1.setBackground(new java.awt.Color(0, 0, 0));
+        jpFormPlatos1.setRoundBottomLeft(50);
+        jpFormPlatos1.setRoundBottomRight(50);
+        jpFormPlatos1.setRoundTopLeft(50);
+        jpFormPlatos1.setRoundTopRight(50);
+
+        jlFormPlatos1.setBackground(new java.awt.Color(255, 255, 255));
+        jlFormPlatos1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jlFormPlatos1.setForeground(new java.awt.Color(255, 255, 255));
+        jlFormPlatos1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlFormPlatos1.setText("FORMULARIO DE PLATOS DE COMIDA");
+        jlFormPlatos1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jpFormPlatos1Layout = new javax.swing.GroupLayout(jpFormPlatos1);
+        jpFormPlatos1.setLayout(jpFormPlatos1Layout);
+        jpFormPlatos1Layout.setHorizontalGroup(
+            jpFormPlatos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpFormPlatos1Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jlFormPlatos1)
+                .addGap(20, 20, 20))
+        );
+        jpFormPlatos1Layout.setVerticalGroup(
+            jpFormPlatos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlFormPlatos1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        fondo_beige9.add(jpFormPlatos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 35));
+
+        jlNombre1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlNombre1.setText("NOMBRE:");
+        fondo_beige9.add(jlNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, 30));
+
+        jtxtPlatoNombreActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        fondo_beige9.add(jtxtPlatoNombreActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 280, 30));
+
+        jlDescripcion1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlDescripcion1.setText("DESCRIPCIÓN:");
+        fondo_beige9.add(jlDescripcion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, 30));
+
+        jtxtPlatoDescripcionActu.setColumns(20);
+        jtxtPlatoDescripcionActu.setRows(5);
+        jScrollPane3.setViewportView(jtxtPlatoDescripcionActu);
+
+        fondo_beige9.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 280, 120));
+
+        jlPrecio1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlPrecio1.setText("PRECIO:");
+        fondo_beige9.add(jlPrecio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, -1, 30));
+
+        jtxtPlatoPrecioActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        fondo_beige9.add(jtxtPlatoPrecioActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 280, 30));
+
+        jlCategoria1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlCategoria1.setText("CATEGORÍA:");
+        fondo_beige9.add(jlCategoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, -1, 30));
+
+        jcbPlatosFormCatActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jcbPlatosFormCatActu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entradas", "Parrillas", "Postres" }));
+        fondo_beige9.add(jcbPlatosFormCatActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, 280, 30));
+
+        jbPlatosGuardarActu.setBackground(new java.awt.Color(209, 32, 31));
+        jbPlatosGuardarActu.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbPlatosGuardarActu.setForeground(new java.awt.Color(255, 255, 255));
+        jbPlatosGuardarActu.setText("GUARDAR");
+        jbPlatosGuardarActu.setBorder(null);
+        jbPlatosGuardarActu.setFocusPainted(false);
+        jbPlatosGuardarActu.setFocusable(false);
+        jbPlatosGuardarActu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbPlatosGuardarActu.setOpaque(true);
+        jbPlatosGuardarActu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPlatosGuardarActuActionPerformed(evt);
+            }
+        });
+        fondo_beige9.add(jbPlatosGuardarActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 150, 40));
+
+        jbPlatosCancelarActu.setBackground(new java.awt.Color(63, 92, 112));
+        jbPlatosCancelarActu.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbPlatosCancelarActu.setForeground(new java.awt.Color(255, 255, 255));
+        jbPlatosCancelarActu.setText("CANCELAR");
+        jbPlatosCancelarActu.setBorder(null);
+        jbPlatosCancelarActu.setFocusPainted(false);
+        jbPlatosCancelarActu.setFocusable(false);
+        jbPlatosCancelarActu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbPlatosCancelarActu.setOpaque(true);
+        jbPlatosCancelarActu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPlatosCancelarActuActionPerformed(evt);
+            }
+        });
+        fondo_beige9.add(jbPlatosCancelarActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 260, 150, 40));
+
+        jlPlatoID1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlPlatoID1.setText("ID:");
+        fondo_beige9.add(jlPlatoID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, 30));
+
+        jtxtPlatoIDActu.setEditable(false);
+        jtxtPlatoIDActu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fondo_beige9.add(jtxtPlatoIDActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 280, 30));
+
+        jbPlatosEliminar.setBackground(new java.awt.Color(63, 92, 112));
+        jbPlatosEliminar.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jbPlatosEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        jbPlatosEliminar.setText("ELIMINAR");
+        jbPlatosEliminar.setBorder(null);
+        jbPlatosEliminar.setFocusPainted(false);
+        jbPlatosEliminar.setFocusable(false);
+        jbPlatosEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbPlatosEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPlatosEliminarActionPerformed(evt);
+            }
+        });
+        fondo_beige9.add(jbPlatosEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 150, 40));
+
+        page_platosComidaFormularioActu.add(fondo_beige9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
+
+        pestañas.addTab("", page_platosComidaFormularioActu);
+
+        page_productosFormularioActu.setBackground(new java.awt.Color(255, 125, 14));
+        page_productosFormularioActu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fondo_beige10.setBackground(new java.awt.Color(255, 253, 247));
+        fondo_beige10.setRoundBottomLeft(50);
+        fondo_beige10.setRoundBottomRight(50);
+        fondo_beige10.setRoundTopLeft(50);
+        fondo_beige10.setRoundTopRight(50);
+        fondo_beige10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jpProductoFormulario1.setBackground(new java.awt.Color(0, 0, 0));
+        jpProductoFormulario1.setRoundBottomLeft(50);
+        jpProductoFormulario1.setRoundBottomRight(50);
+        jpProductoFormulario1.setRoundTopLeft(50);
+        jpProductoFormulario1.setRoundTopRight(50);
+
+        jlProductoFormulario1.setBackground(new java.awt.Color(255, 255, 255));
+        jlProductoFormulario1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jlProductoFormulario1.setForeground(new java.awt.Color(255, 255, 255));
+        jlProductoFormulario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlProductoFormulario1.setText("FORMULARIO DE PRODUCTO");
+        jlProductoFormulario1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jpProductoFormulario1Layout = new javax.swing.GroupLayout(jpProductoFormulario1);
+        jpProductoFormulario1.setLayout(jpProductoFormulario1Layout);
+        jpProductoFormulario1Layout.setHorizontalGroup(
+            jpProductoFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpProductoFormulario1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jlProductoFormulario1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpProductoFormulario1Layout.setVerticalGroup(
+            jpProductoFormulario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlProductoFormulario1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        fondo_beige10.add(jpProductoFormulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 35));
+
+        jlProductoNombre1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlProductoNombre1.setText("NOMBRE:");
+        fondo_beige10.add(jlProductoNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, -1, 30));
+
+        jtxtProductoNombreActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        fondo_beige10.add(jtxtProductoNombreActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 280, 30));
+
+        jlProductoDetalle1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlProductoDetalle1.setText("DETALLE:");
+        fondo_beige10.add(jlProductoDetalle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, -1, 30));
+
+        jtxtProductoDetalleActu.setColumns(20);
+        jtxtProductoDetalleActu.setRows(5);
+        jScrollPane9.setViewportView(jtxtProductoDetalleActu);
+
+        fondo_beige10.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 280, 100));
+
+        jlProductoCategoria1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlProductoCategoria1.setText("CATEGORÍA:");
+        fondo_beige10.add(jlProductoCategoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, -1, 30));
+
+        jcbProductoFormCatActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jcbProductoFormCatActu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bebidas", "Snacks" }));
+        fondo_beige10.add(jcbProductoFormCatActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 280, 30));
+
+        jlProductoCantidad1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlProductoCantidad1.setText("CANTIDAD:");
+        fondo_beige10.add(jlProductoCantidad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, -1, 30));
+
+        jtxtProductoCantidadActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        fondo_beige10.add(jtxtProductoCantidadActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 160, 30));
+
+        jlProductoPrecio1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlProductoPrecio1.setText("PRECIO:");
+        fondo_beige10.add(jlProductoPrecio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, -1, 30));
+
+        jtxtProductoPrecioActu.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        fondo_beige10.add(jtxtProductoPrecioActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 280, 30));
+
+        jbProductoGuardarActu.setBackground(new java.awt.Color(209, 32, 31));
+        jbProductoGuardarActu.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbProductoGuardarActu.setForeground(new java.awt.Color(255, 255, 255));
+        jbProductoGuardarActu.setText("GUARDAR");
+        jbProductoGuardarActu.setBorder(null);
+        jbProductoGuardarActu.setFocusPainted(false);
+        jbProductoGuardarActu.setFocusable(false);
+        jbProductoGuardarActu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbProductoGuardarActu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbProductoGuardarActuActionPerformed(evt);
+            }
+        });
+        fondo_beige10.add(jbProductoGuardarActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 150, 40));
+
+        jbProductoCancelarActu.setBackground(new java.awt.Color(63, 92, 112));
+        jbProductoCancelarActu.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbProductoCancelarActu.setForeground(new java.awt.Color(255, 255, 255));
+        jbProductoCancelarActu.setText("CANCELAR");
+        jbProductoCancelarActu.setBorder(null);
+        jbProductoCancelarActu.setFocusPainted(false);
+        jbProductoCancelarActu.setFocusable(false);
+        jbProductoCancelarActu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbProductoCancelarActu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbProductoCancelarActuActionPerformed(evt);
+            }
+        });
+        fondo_beige10.add(jbProductoCancelarActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 150, 40));
+
+        jtxtProductoIDActu.setEditable(false);
+        jtxtProductoIDActu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fondo_beige10.add(jtxtProductoIDActu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 280, 30));
+
+        jlProductoID1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jlProductoID1.setText("ID:");
+        fondo_beige10.add(jlProductoID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, 30));
+
+        jbProductoEliminar.setBackground(new java.awt.Color(63, 92, 112));
+        jbProductoEliminar.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jbProductoEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        jbProductoEliminar.setText("ELIMINAR");
+        jbProductoEliminar.setBorder(null);
+        jbProductoEliminar.setFocusPainted(false);
+        jbProductoEliminar.setFocusable(false);
+        jbProductoEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbProductoEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbProductoEliminarActionPerformed(evt);
+            }
+        });
+        fondo_beige10.add(jbProductoEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 150, 40));
+
+        page_productosFormularioActu.add(fondo_beige10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
+
+        pestañas.addTab("", page_productosFormularioActu);
+
         getContentPane().add(pestañas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 550));
 
         pack();
@@ -1701,6 +2068,152 @@ public class AdministradorMenu extends javax.swing.JFrame {
         ColorOP.AnimattUsuarios();
     }//GEN-LAST:event_btnUsuariosMousePressed
 
+    private void limpiarFormUsuarioUsuarios() {
+        // Establecer el texto de los labels a vacío
+        jtxtUsuarioID.setText("");
+        jtxtNombres.setText("");
+        jtxtApellidos.setText("");
+        jtxtDNI.setText("");
+        jtxtTelefono.setText("");
+        jtxtNomUsuario.setText("");
+        jtxtContra.setText("");
+    }
+
+    private void limpiarFormUsuarioPlato() {
+        // Establecer el texto de los labels a vacío
+        jtxtPlatoID.setText("");
+        jtxtPlatoNombre.setText("");
+        jtxtPlatoDescripcion.setText("");
+        jtxtPlatoPrecio.setText("");
+    }
+
+    private void limpiarFormProducto() {
+        // Establecer el texto de los labels a vacío
+        jtxtProductoID.setText("");
+        jtxtProductoNombre.setText("");
+        jtxtProductoDetalle.setText("");
+        jtxtProductoPrecio.setText("");
+    }
+
+    private void limpiarFormUsuariosActu() {
+        // Establecer el texto de los labels a vacío
+        jtxtUsuarioIDActu.setText("");
+        jtxtNombresActu.setText("");
+        jtxtApellidosActu.setText("");
+        jtxtDNIActu.setText("");
+        jtxtTelefonoActu.setText("");
+        jtxtNomUsuarioActu.setText("");
+    }
+
+    private void limpiarFormPlatosActu() {
+        // Establecer el texto de los labels a vacío
+        jtxtPlatoIDActu.setText("");
+        jtxtPlatoNombreActu.setText("");
+        jtxtPlatoDescripcionActu.setText("");
+        jtxtPlatoPrecioActu.setText("");
+    }
+
+    private void limpiarFormProductoActu() {
+        // Establecer el texto de los labels a vacío
+        jtxtProductoIDActu.setText("");
+        jtxtProductoNombreActu.setText("");
+        jtxtProductoDetalleActu.setText("");
+        jtxtProductoPrecioActu.setText("");
+    }
+
+    private void refreshTablaUsuarios() {
+        DefaultTableModel tblModel = (DefaultTableModel) jtblUsuarios.getModel();
+        tblModel.setRowCount(0);
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
+            Statement st = con.createStatement();
+
+            String sql = "SELECT id_usuario, nombres, apellidos, dni, telefono, nom_usuario, rol FROM usuario";
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                String id = String.valueOf(rs.getInt("id_usuario"));
+                String nombres = rs.getString("nombres");
+                String apellidos = rs.getString("apellidos");
+                String dni = rs.getString("dni");
+                String telefono = rs.getString("telefono");
+                String nomUsuario = rs.getString("nom_usuario");
+                String rol = rs.getString("rol");
+
+                String tbData[] = {id, nombres, apellidos, dni, telefono, nomUsuario, rol};
+
+                tblModel.addRow(tbData);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+
+        }
+    }
+
+    private void refreshTablaPlatos() {
+        DefaultTableModel tblModel = (DefaultTableModel) jtblPlatosComida.getModel();
+        tblModel.setRowCount(0);
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
+            Statement st = con.createStatement();
+
+            String sql = "SELECT * FROM plato_comida";
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                String id = String.valueOf(rs.getInt("id_plato"));
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                String precio = String.valueOf(rs.getDouble("precio"));
+                String categoria = rs.getString("categoria");
+
+                String tbData[] = {id, nombre, descripcion, precio, categoria};
+
+                tblModel.addRow(tbData);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+
+        }
+    }
+
+    private void refreshTablaProductos() {
+        DefaultTableModel tblModel = (DefaultTableModel) jtblProductos.getModel();
+        tblModel.setRowCount(0);
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
+            Statement st = con.createStatement();
+
+            String sql = "SELECT * FROM productos";
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                String id = String.valueOf(rs.getInt("id_producto"));
+                String nombre = rs.getString("nombre");
+                String categoria = rs.getString("categoria");
+                String detalle = rs.getString("detalle");
+                String cantidad = String.valueOf(rs.getInt("cantidad"));
+                String precio = String.valueOf(rs.getDouble("precio"));
+
+                String tbData[] = {id, nombre, categoria, detalle, cantidad, precio};
+
+                tblModel.addRow(tbData);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+
+        }
+    }
+
     private void btnPlatosComidaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPlatosComidaMousePressed
         pestañas.setSelectedIndex(2);
         ColorOP.AnimattPlatosComida();
@@ -1710,11 +2223,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
         pestañas.setSelectedIndex(4);
         ColorOP.AnimattProductos();
     }//GEN-LAST:event_btnProductosMousePressed
-
-    private void btnAsignacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAsignacionMousePressed
-        pestañas.setSelectedIndex(6);
-        ColorOP.AnimattAsignacion();
-    }//GEN-LAST:event_btnAsignacionMousePressed
 
     private void btnVentasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVentasMousePressed
         pestañas.setSelectedIndex(7);
@@ -1733,24 +2241,98 @@ public class AdministradorMenu extends javax.swing.JFrame {
     // ------------USUARIOS
     private void jbUsuarioCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioCancelarActionPerformed
         pestañas.setSelectedIndex(0);
+        limpiarFormUsuarioUsuarios();
+        refreshTablaUsuarios();
         ColorOP.AnimattUsuarios();
     }//GEN-LAST:event_jbUsuarioCancelarActionPerformed
 
     private void jbUsuarioGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioGuardarActionPerformed
         try {
+            // Obtener los valores de los campos
+            String nombres = jtxtNombres.getText();
+            String apellidos = jtxtApellidos.getText();
+            String dni = jtxtDNI.getText();
+            String telefono = jtxtTelefono.getText();
+            String nomUsuario = jtxtNomUsuario.getText();
+            String contrasena = jtxtContra.getText(); // Asegúrate de tener un campo para la contraseña
+            String idUsuario = jtxtUsuarioID.getText();
+
+            // Validaciones
+            if (nombres.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Los nombres no deben estar vacíos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!nombres.matches("[a-zA-Z ]+")) {
+                JOptionPane.showMessageDialog(null, "Los nombres deben contener solo letras.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (nombres.length() > 100) {
+                JOptionPane.showMessageDialog(null, "Los nombres deben tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (apellidos.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Los apellidos no deben estar vacíos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!apellidos.matches("[a-zA-Z ]+")) {
+                JOptionPane.showMessageDialog(null, "Los apellidos deben contener solo letras.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (apellidos.length() > 100) {
+                JOptionPane.showMessageDialog(null, "Los apellidos deben tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (dni.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El DNI no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!dni.matches("\\d{8}")) {
+                JOptionPane.showMessageDialog(null, "El DNI debe contener exactamente 8 dígitos numéricos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (telefono.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El teléfono no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!telefono.matches("\\d{9}")) {
+                JOptionPane.showMessageDialog(null, "El teléfono debe contener exactamente 9 dígitos numéricos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (nomUsuario.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El nombre de usuario no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (nomUsuario.length() > 100) {
+                JOptionPane.showMessageDialog(null, "El nombre de usuario debe tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (contrasena.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La contraseña no debe estar vacía.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (contrasena.length() > 100) {
+                JOptionPane.showMessageDialog(null, "La contraseña debe tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear el objeto Usuario y asignar valores
             UsuarioBO usuarioBO = new UsuarioBO();
             Usuario usuario = new Usuario();
 
-            String idUsuario = jtxtUsuarioID.getText();
-
-            usuario.setNombres(jtxtNombres.getText());
-            usuario.setApellidos(jtxtApellidos.getText());
-            usuario.setDni(jtxtDNI.getText());
-            usuario.setTelefono(jtxtTelefono.getText());
-            usuario.setNomUsuario(jtxtNomUsuario.getText());
-            usuario.setContrasena(String.valueOf(jtxtContra.getPassword()));
+            usuario.setNombres(nombres);
+            usuario.setApellidos(apellidos);
+            usuario.setDni(dni);
+            usuario.setTelefono(telefono);
+            usuario.setNomUsuario(nomUsuario);
+            usuario.setContrasena(contrasena); // Asegúrate de que el objeto Usuario tenga este método
             usuario.setRol((String) jcbFormularioRol.getSelectedItem());
 
+            // Guardar o actualizar el usuario
             if (idUsuario.isEmpty()) {
                 usuarioBO.insertar(usuario);
                 jtxtUsuarioID.setText(String.valueOf(usuario.getId_usuario()));
@@ -1759,47 +2341,18 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 usuarioBO.actualizar(usuario);
             }
 
-            JOptionPane.showMessageDialog(null, "El USUARIO se registro correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El USUARIO se registró correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             pestañas.setSelectedIndex(0);
+            limpiarFormUsuarioUsuarios();
+            refreshTablaUsuarios();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbUsuarioGuardarActionPerformed
 
-    private void jbUsuarioEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioEliminarActionPerformed
-        // Obtiene la fila seleccionada
-        int fila = jtblUsuarios.getSelectedRow();
-
-        if (fila != -1) { // -1 significa que no hay fila seleccionada
-            // Obtiene el ID del usuario de la columna correspondiente (asumiendo que la columna 0 es el ID)
-            String id = jtblUsuarios.getValueAt(fila, 0).toString();
-
-            // Confirma la eliminación
-            int respuesta = JOptionPane.showConfirmDialog(this, "¿Deseas eliminar el usuario seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-
-            if (respuesta == JOptionPane.YES_OPTION) {
-                try {
-                    // Llama al método de eliminación en la capa de negocio o directamente en la base de datos
-                    UsuarioBO usuarioBO = new UsuarioBO();
-                    usuarioBO.eliminar(Integer.parseInt(id));
-
-                    // Elimina la fila de la tabla
-                    DefaultTableModel tblModel = (DefaultTableModel) jtblUsuarios.getModel();
-                    tblModel.removeRow(fila);
-
-                    JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente.");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un usuario para eliminar.");
-        }
-    }//GEN-LAST:event_jbUsuarioEliminarActionPerformed
-
     private void jbUsuarioCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioCrearActionPerformed
-        pestañas.setSelectedIndex(1);
+        pestañas.setSelectedIndex(1); //te lleva a la pestaña 1
         ColorOP.AnimattUsuarios();
     }//GEN-LAST:event_jbUsuarioCrearActionPerformed
     // -----------------PLATOS DE COMIDA
@@ -1808,49 +2361,49 @@ public class AdministradorMenu extends javax.swing.JFrame {
         ColorOP.AnimattPlatosComida();
     }//GEN-LAST:event_jbPlatosCrearActionPerformed
 
-    private void jbPlatosEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPlatosEliminarActionPerformed
-        // Obtiene la fila seleccionada
-        int fila = jtblPlatosComida.getSelectedRow();
-
-        if (fila != -1) { // -1 significa que no hay fila seleccionada
-            // Obtiene el ID del usuario de la columna correspondiente (asumiendo que la columna 0 es el ID)
-            String id = jtblPlatosComida.getValueAt(fila, 0).toString();
-
-            // Confirma la eliminación
-            int respuesta = JOptionPane.showConfirmDialog(this, "¿Deseas eliminar el plato de comida seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-
-            if (respuesta == JOptionPane.YES_OPTION) {
-                try {
-                    // Llama al método de eliminación en la capa de negocio o directamente en la base de datos
-                    PlatoComidaBO platoBO = new PlatoComidaBO();
-                    platoBO.eliminar(Integer.parseInt(id));
-
-                    // Elimina la fila de la tabla
-                    DefaultTableModel tblModel = (DefaultTableModel) jtblPlatosComida.getModel();
-                    tblModel.removeRow(fila);
-
-                    JOptionPane.showMessageDialog(null, "Plato de comida eliminado correctamente.");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un plato de comida para eliminar.");
-        }
-    }//GEN-LAST:event_jbPlatosEliminarActionPerformed
-
     private void jbPlatosGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPlatosGuardarActionPerformed
+
         try {
+            // Obtener los valores de los campos
+            String nombre = jtxtPlatoNombre.getText();
+            String descripción = jtxtPlatoDescripcion.getText();
+            String precio = jtxtPlatoPrecio.getText();
+            String idPlato = jtxtPlatoID.getText();
+
+            // Validaciones
+            if (nombre.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Los nombres de los platos no deben estar vacíos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (nombre.length() > 100) {
+                JOptionPane.showMessageDialog(null, "Los nombres de los platos deben tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (descripción.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La descripción no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (precio.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El precio no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!precio.matches("\\d+(\\.\\d+)?")) {
+                JOptionPane.showMessageDialog(null, "El precio debe ser un número válido", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear el objeto Usuario y asignar valores
             PlatoComidaBO platoBO = new PlatoComidaBO();
             PlatoComida plato = new PlatoComida();
 
-            String idPlato = jtxtPlatoID.getText();
-
-            plato.setNombre(jtxtPlatoNombre.getText());
-            plato.setDescripcion(jtxtPlatoDescripcion.getText());
-            plato.setPrecio(Double.parseDouble(jtxtPlatoPrecio.getText()));
+            plato.setNombre(nombre);
+            plato.setDescripcion(descripción);
+            plato.setPrecio(Double.parseDouble(precio));
             plato.setCategoria((String) jcbPlatosFormCat.getSelectedItem());
 
+            // Guardar o actualizar el usuario
             if (idPlato.isEmpty()) {
                 platoBO.insertar(plato);
                 jtxtPlatoID.setText(String.valueOf(plato.getId_plato()));
@@ -1859,8 +2412,11 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 platoBO.actualizar(plato);
             }
 
-            JOptionPane.showMessageDialog(null, "El PLATO DE COMIDA se registro correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El PLATO se registró correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             pestañas.setSelectedIndex(2);
+            limpiarFormUsuarioPlato();
+            refreshTablaPlatos();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -1868,6 +2424,8 @@ public class AdministradorMenu extends javax.swing.JFrame {
 
     private void jbPlatosCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPlatosCancelarActionPerformed
         pestañas.setSelectedIndex(2);
+        limpiarFormUsuarioPlato();
+        refreshTablaPlatos();
         ColorOP.AnimattPlatosComida();
     }//GEN-LAST:event_jbPlatosCancelarActionPerformed
     //---------------PRODUCTOS
@@ -1876,50 +2434,50 @@ public class AdministradorMenu extends javax.swing.JFrame {
         ColorOP.AnimattProductos();
     }//GEN-LAST:event_jbProductoCrearActionPerformed
 
-    private void jbProductoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbProductoEliminarActionPerformed
-        // Obtiene la fila seleccionada
-        int fila = jtblProductos.getSelectedRow();
-
-        if (fila != -1) { // -1 significa que no hay fila seleccionada
-            // Obtiene el ID del usuario de la columna correspondiente (asumiendo que la columna 0 es el ID)
-            String id = jtblProductos.getValueAt(fila, 0).toString();
-
-            // Confirma la eliminación
-            int respuesta = JOptionPane.showConfirmDialog(this, "¿Deseas eliminar el producto seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-
-            if (respuesta == JOptionPane.YES_OPTION) {
-                try {
-                    // Llama al método de eliminación en la capa de negocio o directamente en la base de datos
-                    ProductosBO productoBO = new ProductosBO();
-                    productoBO.eliminar(Integer.parseInt(id));
-
-                    // Elimina la fila de la tabla
-                    DefaultTableModel tblModel = (DefaultTableModel) jtblProductos.getModel();
-                    tblModel.removeRow(fila);
-
-                    JOptionPane.showMessageDialog(null, "Producto eliminado correctamente.");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un producto para eliminar.");
-        }
-    }//GEN-LAST:event_jbProductoEliminarActionPerformed
-
     private void jbProductoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbProductoGuardarActionPerformed
+
         try {
+            // Obtener los valores de los campos
+            String nombres = jtxtProductoNombre.getText();
+            String detalle = jtxtProductoDetalle.getText();
+            String precio = jtxtProductoPrecio.getText();
+            String idProducto = jtxtProductoID.getText();
+
+            // Validaciones
+            if (nombres.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El nombre del producto no debe estar vacíos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (nombres.length() > 100) {
+                JOptionPane.showMessageDialog(null, "El nombre del producto debe tener un máximo de 100 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (detalle.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Los detalles no deben estar vacíos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (precio.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El precio no debe estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!precio.matches("\\d+(\\.\\d+)?")) {
+                JOptionPane.showMessageDialog(null, "El precio debe ser un número válido", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear el objeto Usuario y asignar valores
             ProductosBO productoBO = new ProductosBO();
             Productos producto = new Productos();
 
-            String idProducto = jtxtProductoID.getText();
-
-            producto.setNombre(jtxtProductoNombre.getText());
+            producto.setNombre(nombres);
+            producto.setDetalle(detalle);
             producto.setCategoria((String) jcbProductoFormCat.getSelectedItem());
-            producto.setDetalle(jtxtProductoDetalle.getText());
             producto.setCantidad((int) jtxtProductoCantidad.getValue());
-            producto.setPrecio(Double.parseDouble(jtxtProductoPrecio.getText()));
+            producto.setPrecio(Double.parseDouble(precio));
 
+            // Guardar o actualizar el usuario
             if (idProducto.isEmpty()) {
                 productoBO.insertar(producto);
                 jtxtProductoID.setText(String.valueOf(producto.getId_producto()));
@@ -1928,8 +2486,11 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 productoBO.actualizar(producto);
             }
 
-            JOptionPane.showMessageDialog(null, "El PRODUCTO se registro correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El PRODUCTO se registró correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             pestañas.setSelectedIndex(4);
+            limpiarFormProducto();
+            refreshTablaProductos();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -1937,6 +2498,8 @@ public class AdministradorMenu extends javax.swing.JFrame {
 
     private void jbProductoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbProductoCancelarActionPerformed
         pestañas.setSelectedIndex(4);
+        limpiarFormProducto();
+        refreshTablaProductos();
         ColorOP.AnimattProductos();
     }//GEN-LAST:event_jbProductoCancelarActionPerformed
 
@@ -2005,7 +2568,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
-        */
+         */
     }//GEN-LAST:event_jbAsignarMeseroActionPerformed
 
     private void jbEliminarAsignacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarAsignacionActionPerformed
@@ -2037,13 +2600,13 @@ public class AdministradorMenu extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un producto para eliminar.");
         }
-        */
+         */
     }//GEN-LAST:event_jbEliminarAsignacionActionPerformed
     /* ----- USUARIOS ----- .....*/
     private void jbUsuarioMostrarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioMostrarListaActionPerformed
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://bfsytg3rbkdzoanfa8sa-mysql.services.clever-cloud.com:3306/bfsytg3rbkdzoanfa8sa", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
+            Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
             Statement st = con.createStatement();
 
             String sql = "SELECT id_usuario, nombres, apellidos, dni, telefono, nom_usuario, rol FROM usuario";
@@ -2081,45 +2644,60 @@ public class AdministradorMenu extends javax.swing.JFrame {
         try {
             ArrayList<Usuario> usuarios = null;
             Usuario usuario = null;
-            String cadena = jtxtUsuarioBuscar.getText();
+            String cadena = jtxtUsuarioBuscar.getText().trim(); // Eliminar espacios en blanco
             DefaultTableModel modelo = (DefaultTableModel) jtblUsuarios.getModel();
-            modelo.setRowCount(0);
+            modelo.setRowCount(0); // Limpiar la tabla antes de buscar
 
             int op = jcbUsuarioBuscarCat.getSelectedIndex();
 
             UsuarioBO usuarioBO = new UsuarioBO();
-            if (op == 0) {
-                usuario = new Usuario();
-                usuario = usuarioBO.buscarPorId(Integer.parseInt(cadena));
-                if (usuario == null) {
+            if (op == 0) { // Buscar por ID
+                if (cadena.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID.", "ERROR", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+                try {
+                    int id = Integer.parseInt(cadena);
+                    usuario = usuarioBO.buscarPorId(id);
+                    if (usuario != null) {
+                        Object[] registro = {
+                            usuario.getId_usuario(),
+                            usuario.getNombres(),
+                            usuario.getApellidos(),
+                            usuario.getDni(),
+                            usuario.getTelefono(),
+                            usuario.getNomUsuario(),
+                            usuario.getRol()
+                        };
+                        modelo.addRow(registro);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró ningún usuario con ese ID.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "El ID debe ser un número válido.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            } else { // Buscar por Nombres
+                if (cadena.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un nombre.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                usuarios = usuarioBO.buscarPorUsuario(cadena); // Asegúrate de que este método esté implementado correctamente
 
-                Object[] registro = {
-                    usuario.getId_usuario(),
-                    usuario.getNombres(),
-                    usuario.getApellidos(),
-                    usuario.getDni(),
-                    usuario.getTelefono(),
-                    usuario.getNomUsuario(),
-                    usuario.getRol()
-                };
-                modelo.addRow(registro);
-            } else {
-                usuarios = new ArrayList<Usuario>();
-                usuarios = usuarioBO.buscarPorUsuario(cadena);
-
-                for (Usuario u : usuarios) {
-                    Object[] registro = {
-                        u.getId_usuario(),
-                        u.getNombres(),
-                        u.getApellidos(),
-                        u.getDni(),
-                        u.getTelefono(),
-                        u.getNomUsuario(),
-                        u.getRol()
-                    };
-                    modelo.addRow(registro);
+                if (usuarios.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No se encontraron usuarios con ese nombre.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    for (Usuario u : usuarios) {
+                        Object[] registro = {
+                            u.getId_usuario(),
+                            u.getNombres(),
+                            u.getApellidos(),
+                            u.getDni(),
+                            u.getTelefono(),
+                            u.getNomUsuario(),
+                            u.getRol()
+                        };
+                        modelo.addRow(registro);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -2127,9 +2705,34 @@ public class AdministradorMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbUsuarioBuscarActionPerformed
 
-    private void jbUsuarioActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsuarioActualizarActionPerformed
+    private void llenarFormularioUsuario(String[] usuarioData) {
+        jtxtUsuarioIDActu.setText(usuarioData[0]); // ID
+        jtxtNombresActu.setText(usuarioData[1]); // NOMBRES
+        jtxtApellidosActu.setText(usuarioData[2]); // APELLIDOS
+        jtxtDNIActu.setText(usuarioData[3]); // DNI
+        jtxtTelefonoActu.setText(usuarioData[4]); // TELEFONO
+        jtxtNomUsuarioActu.setText(usuarioData[5]); // USUARIO
+        // Establecer el rol en el JComboBox
+        jcbFormularioRolActu.setSelectedItem(usuarioData[6]); // ROL
+    }
 
-    }//GEN-LAST:event_jbUsuarioActualizarActionPerformed
+    private void llenarFormularioPlato(String[] platoData) {
+        jtxtPlatoIDActu.setText(platoData[0]); // ID
+        jtxtPlatoNombreActu.setText(platoData[1]); // NOMBRE
+        jtxtPlatoDescripcionActu.setText(platoData[2]); // DESCRIPCIÓN
+        jtxtPlatoPrecioActu.setText(platoData[3]); // PRECIO
+        // Establecer el rol en el JComboBox
+        jcbPlatosFormCatActu.setSelectedItem(platoData[6]); // CATEGORÍA
+    }
+
+    private void llenarFormularioProducto(String[] productoData) {
+        jtxtProductoIDActu.setText(productoData[0]); // ID
+        jtxtProductoNombreActu.setText(productoData[1]); // NOMBRES
+        jtxtProductoDetalleActu.setText(productoData[2]); // APELLIDOS
+        jcbProductoFormCatActu.setSelectedItem(productoData[3]); // ROL
+        jtxtProductoCantidadActu.setValue(Integer.parseInt(productoData[4])); // CANTIDAD
+        jtxtProductoPrecioActu.setText(productoData[5]); // DNI
+    }
 
     private void jcbUsuarioRolItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbUsuarioRolItemStateChanged
         // Solo realiza la acción cuando el estado del item cambia a seleccionado
@@ -2143,7 +2746,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://bfsytg3rbkdzoanfa8sa-mysql.services.clever-cloud.com:3306/bfsytg3rbkdzoanfa8sa", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
+                Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
                 Statement st = con.createStatement();
 
                 // Agrega una condición WHERE para filtrar según el rol seleccionado
@@ -2177,7 +2780,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
     private void jbPlatosMostrarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPlatosMostrarListaActionPerformed
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://bfsytg3rbkdzoanfa8sa-mysql.services.clever-cloud.com:3306/bfsytg3rbkdzoanfa8sa", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
+            Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM plato_comida";
@@ -2252,10 +2855,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbPlatosBuscarActionPerformed
 
-    private void jbPlatosActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPlatosActualizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbPlatosActualizarActionPerformed
-
     private void jcbPlatosCatItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbPlatosCatItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             String catSeleccionada = jcbPlatosCat.getSelectedItem().toString();
@@ -2265,7 +2864,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://bfsytg3rbkdzoanfa8sa-mysql.services.clever-cloud.com:3306/bfsytg3rbkdzoanfa8sa", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
+                Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
                 Statement st = con.createStatement();
 
                 String sql = "SELECT * FROM plato_comida";
@@ -2296,7 +2895,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
     private void jbProductosMostrarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbProductosMostrarListaActionPerformed
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://bfsytg3rbkdzoanfa8sa-mysql.services.clever-cloud.com:3306/bfsytg3rbkdzoanfa8sa", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
+            Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM productos";
@@ -2374,10 +2973,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbProductosBuscarActionPerformed
 
-    private void jbProductosActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbProductosActualizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbProductosActualizarActionPerformed
-
     private void jcbProductosCatItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbProductosCatItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             String catSeleccionada = jcbProductosCat.getSelectedItem().toString();
@@ -2387,7 +2982,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://bfsytg3rbkdzoanfa8sa-mysql.services.clever-cloud.com:3306/bfsytg3rbkdzoanfa8sa", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
+                Connection con = DriverManager.getConnection("jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd", "ulyfwrg1vfpqzj0x", "84YlnLU1hjjP2sJdHtn7");
                 Statement st = con.createStatement();
 
                 String sql = "SELECT * FROM productos";
@@ -2448,21 +3043,15 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
             }
         }
-        */
+         */
     }//GEN-LAST:event_jcbFiltroAsignacionItemStateChanged
 
-    private void jcbUsuarioBuscarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUsuarioBuscarCatActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jcbUsuarioBuscarCatActionPerformed
 
-    private void jtxtUsuarioBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtUsuarioBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtUsuarioBuscarActionPerformed
 
     private void jcbUsuarioRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUsuarioRolActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbUsuarioRolActionPerformed
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -2528,7 +3117,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static componentes.PanelGradient btnAsignacion;
     public static componentes.PanelGradient btnPlatosComida;
     public static componentes.PanelGradient btnProductos;
     public static componentes.PanelGradient btnSalir;
@@ -2536,105 +3124,135 @@ public class AdministradorMenu extends javax.swing.JFrame {
     public static componentes.PanelGradient btnVentas;
     private componentes.PanelRound fondo_beige;
     private componentes.PanelRound fondo_beige1;
+    private componentes.PanelRound fondo_beige10;
     private componentes.PanelRound fondo_beige2;
     private componentes.PanelRound fondo_beige3;
     private componentes.PanelRound fondo_beige4;
     private componentes.PanelRound fondo_beige5;
     private componentes.PanelRound fondo_beige6;
     private componentes.PanelRound fondo_beige7;
+    private componentes.PanelRound fondo_beige8;
+    private componentes.PanelRound fondo_beige9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton jbAsignaciónMostrarLista;
     private javax.swing.JButton jbAsignarMesero;
     private javax.swing.JButton jbEliminarAsignacion;
-    private javax.swing.JButton jbPlatosActualizar;
     private javax.swing.JButton jbPlatosBuscar;
     private javax.swing.JButton jbPlatosCancelar;
+    private javax.swing.JButton jbPlatosCancelarActu;
     private javax.swing.JButton jbPlatosCrear;
     private javax.swing.JButton jbPlatosEliminar;
     private javax.swing.JButton jbPlatosGuardar;
+    private javax.swing.JButton jbPlatosGuardarActu;
     private javax.swing.JButton jbPlatosListaLimpiar;
     private javax.swing.JButton jbPlatosMostrarLista;
     private javax.swing.JButton jbProductoCancelar;
+    private javax.swing.JButton jbProductoCancelarActu;
     private javax.swing.JButton jbProductoCrear;
     private javax.swing.JButton jbProductoEliminar;
     private javax.swing.JButton jbProductoGuardar;
-    private javax.swing.JButton jbProductosActualizar;
+    private javax.swing.JButton jbProductoGuardarActu;
     private javax.swing.JButton jbProductosBuscar;
     private javax.swing.JButton jbProductosLimpiar;
     private javax.swing.JButton jbProductosMostrarLista;
-    private javax.swing.JButton jbUsuarioActualizar;
     private javax.swing.JButton jbUsuarioBuscar;
     private javax.swing.JButton jbUsuarioCancelar;
+    private javax.swing.JButton jbUsuarioCancelarActu;
     private javax.swing.JButton jbUsuarioCrear;
     private javax.swing.JButton jbUsuarioEliminar;
     private javax.swing.JButton jbUsuarioGuardar;
+    private javax.swing.JButton jbUsuarioGuardarActu;
     private javax.swing.JButton jbUsuarioLimpiarLista;
     private javax.swing.JButton jbUsuarioMostrarLista;
     private javax.swing.JComboBox<String> jcbFiltroAsignacion;
     private javax.swing.JComboBox<String> jcbFormularioRol;
+    private javax.swing.JComboBox<String> jcbFormularioRolActu;
     private javax.swing.JComboBox<String> jcbNombreMesero;
     private javax.swing.JComboBox<String> jcbNumMesa;
     private javax.swing.JComboBox<String> jcbPlatosBuscarCat;
     private javax.swing.JComboBox<String> jcbPlatosCat;
     private javax.swing.JComboBox<String> jcbPlatosFormCat;
+    private javax.swing.JComboBox<String> jcbPlatosFormCatActu;
     private javax.swing.JComboBox<String> jcbProductoFormCat;
+    private javax.swing.JComboBox<String> jcbProductoFormCatActu;
     private javax.swing.JComboBox<String> jcbProductosBuscarCat;
     private javax.swing.JComboBox<String> jcbProductosCat;
     private javax.swing.JComboBox<String> jcbReporteFecha;
-    private javax.swing.JComboBox<String> jcbReporteMesas;
     private javax.swing.JComboBox<String> jcbReporteMesero;
     private javax.swing.JComboBox<String> jcbUsuarioBuscarCat;
     private javax.swing.JComboBox<String> jcbUsuarioRol;
-    private javax.swing.JLabel jlApellidos;
-    public static javax.swing.JLabel jlAsignacion;
+    private javax.swing.JLabel jlApellidos1;
+    private javax.swing.JLabel jlApellidosActu;
     private javax.swing.JLabel jlBuscarPor;
     private javax.swing.JLabel jlCategoria;
-    private javax.swing.JLabel jlContra;
-    private javax.swing.JLabel jlDNI;
+    private javax.swing.JLabel jlCategoria1;
+    private javax.swing.JLabel jlContra2;
+    private javax.swing.JLabel jlDNI1;
+    private javax.swing.JLabel jlDNIActu;
     private javax.swing.JLabel jlDescripcion;
+    private javax.swing.JLabel jlDescripcion1;
     private javax.swing.JLabel jlFiltros;
     private javax.swing.JLabel jlFiltros1;
     private javax.swing.JLabel jlFiltros2;
     private javax.swing.JLabel jlFiltros3;
     private javax.swing.JLabel jlFiltros4;
     private javax.swing.JLabel jlFormPlatos;
-    private javax.swing.JLabel jlFormulario;
-    private javax.swing.JLabel jlFormularioRol;
+    private javax.swing.JLabel jlFormPlatos1;
+    private javax.swing.JLabel jlFormulario1;
+    private javax.swing.JLabel jlFormularioActu;
+    private javax.swing.JLabel jlFormularioRol1;
+    private javax.swing.JLabel jlFormularioRolActu;
     private javax.swing.JLabel jlMesero;
-    private javax.swing.JLabel jlNomUsuario;
+    private javax.swing.JLabel jlNomUsuario1;
+    private javax.swing.JLabel jlNomUsuarioActu;
     private javax.swing.JLabel jlNombre;
+    private javax.swing.JLabel jlNombre1;
     private javax.swing.JLabel jlNombreMesero;
     private javax.swing.JLabel jlNombres;
-    private javax.swing.JLabel jlNombres1;
+    private javax.swing.JLabel jlNombres2;
+    private javax.swing.JLabel jlNombres3;
+    private javax.swing.JLabel jlNombresActu;
     private javax.swing.JLabel jlNumMesa;
     private javax.swing.JLabel jlPlatoID;
+    private javax.swing.JLabel jlPlatoID1;
     private javax.swing.JLabel jlPlatosBuscarPor;
     private javax.swing.JLabel jlPlatosCat;
     public static javax.swing.JLabel jlPlatosComida;
     private javax.swing.JLabel jlPrecio;
+    private javax.swing.JLabel jlPrecio1;
     private javax.swing.JLabel jlProductoCantidad;
+    private javax.swing.JLabel jlProductoCantidad1;
     private javax.swing.JLabel jlProductoCategoria;
+    private javax.swing.JLabel jlProductoCategoria1;
     private javax.swing.JLabel jlProductoDetalle;
+    private javax.swing.JLabel jlProductoDetalle1;
     private javax.swing.JLabel jlProductoFormulario;
+    private javax.swing.JLabel jlProductoFormulario1;
     private javax.swing.JLabel jlProductoID;
+    private javax.swing.JLabel jlProductoID1;
     private javax.swing.JLabel jlProductoNombre;
+    private javax.swing.JLabel jlProductoNombre1;
     private javax.swing.JLabel jlProductoPrecio;
+    private javax.swing.JLabel jlProductoPrecio1;
     public static javax.swing.JLabel jlProductos;
     private javax.swing.JLabel jlProductosBuscarPor;
     private javax.swing.JLabel jlProductosCat;
     private javax.swing.JLabel jlReporteFecha;
-    private javax.swing.JLabel jlReporteMesas;
     private javax.swing.JLabel jlReporteMesero;
     private javax.swing.JLabel jlReporteTotal;
     private javax.swing.JLabel jlRol;
     public static javax.swing.JLabel jlSalir;
-    private javax.swing.JLabel jlTelefono;
+    private javax.swing.JLabel jlTelefono1;
+    private javax.swing.JLabel jlTelefonoActu;
     private javax.swing.JLabel jlTituloAsignacion1;
     private javax.swing.JLabel jlTituloListaPlatos;
     private javax.swing.JLabel jlTituloListaProductos;
@@ -2643,13 +3261,15 @@ public class AdministradorMenu extends javax.swing.JFrame {
     public static javax.swing.JLabel jlUsuarios;
     public static javax.swing.JLabel jlVentas;
     private componentes.PanelRound jpFormPlatos;
-    private componentes.PanelRound jpFormulario;
+    private componentes.PanelRound jpFormPlatos1;
+    private componentes.PanelRound jpFormulario1;
+    private componentes.PanelRound jpFormularioActu;
     private componentes.PanelRound jpMesero;
     private componentes.PanelRound jpPlatosCat;
     private componentes.PanelRound jpProductoFormulario;
+    private componentes.PanelRound jpProductoFormulario1;
     private componentes.PanelRound jpProductosCat;
     private componentes.PanelRound jpReporteFecha;
-    private componentes.PanelRound jpReporteMesas;
     private componentes.PanelRound jpReporteMesero;
     private componentes.PanelRound jpRol;
     private componentes.PanelRound jpTituloAsignacion1;
@@ -2663,35 +3283,53 @@ public class AdministradorMenu extends javax.swing.JFrame {
     private javax.swing.JTable jtblReporteVentas;
     private javax.swing.JTable jtblUsuarios;
     private javax.swing.JTextField jtxtApellidos;
+    private javax.swing.JTextField jtxtApellidosActu;
     private javax.swing.JPasswordField jtxtContra;
     private javax.swing.JTextField jtxtDNI;
+    private javax.swing.JTextField jtxtDNIActu;
     private javax.swing.JTextField jtxtNomUsuario;
+    private javax.swing.JTextField jtxtNomUsuarioActu;
     private javax.swing.JTextField jtxtNombres;
+    private javax.swing.JTextField jtxtNombresActu;
     private javax.swing.JTextArea jtxtPlatoDescripcion;
+    private javax.swing.JTextArea jtxtPlatoDescripcionActu;
     private javax.swing.JTextField jtxtPlatoID;
+    private javax.swing.JTextField jtxtPlatoIDActu;
     private javax.swing.JTextField jtxtPlatoNombre;
+    private javax.swing.JTextField jtxtPlatoNombreActu;
     private javax.swing.JTextField jtxtPlatoPrecio;
+    private javax.swing.JTextField jtxtPlatoPrecioActu;
     private javax.swing.JTextField jtxtPlatosBuscar;
     private javax.swing.JSpinner jtxtProductoCantidad;
+    private javax.swing.JSpinner jtxtProductoCantidadActu;
     private javax.swing.JTextArea jtxtProductoDetalle;
+    private javax.swing.JTextArea jtxtProductoDetalleActu;
     private javax.swing.JTextField jtxtProductoID;
+    private javax.swing.JTextField jtxtProductoIDActu;
     private javax.swing.JTextField jtxtProductoNombre;
+    private javax.swing.JTextField jtxtProductoNombreActu;
     private javax.swing.JTextField jtxtProductoPrecio;
+    private javax.swing.JTextField jtxtProductoPrecioActu;
     private javax.swing.JTextField jtxtProductosBuscar;
     private javax.swing.JTextField jtxtReporteTotal;
     private javax.swing.JTextField jtxtTelefono;
+    private javax.swing.JTextField jtxtTelefonoActu;
     private javax.swing.JTextField jtxtUsuarioBuscar;
     private javax.swing.JTextField jtxtUsuarioID;
+    private javax.swing.JTextField jtxtUsuarioIDActu;
     private javax.swing.JPanel logoPolleria;
     private componentes.PanelRound menu;
     private javax.swing.JPanel page_asignacion;
     private javax.swing.JPanel page_platosComida;
     private javax.swing.JPanel page_platosComidaFormulario;
+    private javax.swing.JPanel page_platosComidaFormularioActu;
     private javax.swing.JPanel page_productos;
     private javax.swing.JPanel page_productosFormulario;
+    private javax.swing.JPanel page_productosFormularioActu;
     private javax.swing.JPanel page_reporteVentas;
     private javax.swing.JPanel page_usuarios;
     private javax.swing.JPanel page_usuariosFormulario;
+    private javax.swing.JPanel page_usuariosFormularioActu;
     private javax.swing.JTabbedPane pestañas;
     // End of variables declaration//GEN-END:variables
 }
