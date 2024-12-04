@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class UConnection {
 
-    private static final String URL = "jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@hv-par8-022.clvrcld.net:13867/b7n2pybqwwnmmvd4p8wd";
+    private static final String URL = "jdbc:mysql://ulyfwrg1vfpqzj0x:84YlnLU1hjjP2sJdHtn7@b7n2pybqwwnmmvd4p8wd-mysql.services.clever-cloud.com:20930/b7n2pybqwwnmmvd4p8wd";
     private static final String USER = "ulyfwrg1vfpqzj0x";
     private static final String PASSWORD = "84YlnLU1hjjP2sJdHtn7";
 
@@ -104,4 +104,6 @@ public class UConnection {
             return false;
         }
     }
+    
+    
 }
