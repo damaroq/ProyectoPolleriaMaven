@@ -23,7 +23,7 @@ public class PlatoComidaDAO {
             cstm.setString(2, plato.getNombre());
             cstm.setString(3, plato.getDescripcion());
             cstm.setDouble(4, plato.getPrecio());
-            cstm.setString(5, plato.getDescripcion());
+            cstm.setString(5, plato.getCategoria());
 
             int numeroFilasAfectadas = cstm.executeUpdate(); //se puede usar .execute() para todas las operaciones 
             if (numeroFilasAfectadas > 0) {

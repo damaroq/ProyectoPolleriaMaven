@@ -60,6 +60,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
 
         re.RellenarComboBox("mesas", "id_mesa", jcbNumMesa);
         re.RellenarComboBox("usuario", "nombres", jcbNombreMesero);
+        re.RellenarComboBox("plato_comida", "categoria", jcbPlatosFormCat);
         re.RellenarComboBoxMeseros("usuario", "nombres", jcbReporteMesero, "mesero");
         re.RellenarComboBox("usuario", "nombres", jcbFiltroAsignacion);
         re.RellenarComboBox("plato_comida", "categoria", jcbPlatosCat);
