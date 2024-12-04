@@ -119,6 +119,51 @@ public class CajeroMenu extends javax.swing.JFrame {
         btnResumenCaja = new componentes.PanelGradient();
         jlResumenCaja = new javax.swing.JLabel();
         pestañas = new javax.swing.JTabbedPane();
+        page_resumen = new javax.swing.JPanel();
+        fondo_beige1 = new componentes.PanelRound();
+        jlTotalVentas = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtblVentas = new javax.swing.JTable();
+        jtxtTotalVentas = new javax.swing.JTextField();
+        jpVentas = new componentes.PanelRound();
+        jlVentasDia = new javax.swing.JLabel();
+        page_registro = new javax.swing.JPanel();
+        fondo_beige2 = new componentes.PanelRound();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtblRegistroReservas = new javax.swing.JTable();
+        jpRegistroReserva = new componentes.PanelRound();
+        jlRegistro = new javax.swing.JLabel();
+        jbRegistroEliminar = new javax.swing.JButton();
+        jbRegistroActualizar = new javax.swing.JButton();
+        page_pedido = new javax.swing.JPanel();
+        fondo_beige3 = new componentes.PanelRound();
+        jpPedido = new componentes.PanelRound();
+        jlPedido = new javax.swing.JLabel();
+        jlPrecioTotal = new javax.swing.JLabel();
+        jtxtPrecioTotal = new javax.swing.JTextField();
+        jbPedidoQuitar = new javax.swing.JButton();
+        jbPedidoCobrar = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtblPedido = new javax.swing.JTable();
+        page_formularioReserva = new javax.swing.JPanel();
+        fondo_beige4 = new componentes.PanelRound();
+        jpFormulario = new componentes.PanelRound();
+        jlFormulario = new javax.swing.JLabel();
+        jlNumMesa = new javax.swing.JLabel();
+        jtxtNumMesa = new javax.swing.JTextField();
+        jlCapacidad = new javax.swing.JLabel();
+        jtxtCapacidad = new javax.swing.JTextField();
+        jlNombres = new javax.swing.JLabel();
+        jtxtNombres = new javax.swing.JTextField();
+        jlApellidos = new javax.swing.JLabel();
+        jtxtApellidos = new javax.swing.JTextField();
+        jlTelefono = new javax.swing.JLabel();
+        jtxtTelefono = new javax.swing.JTextField();
+        jlFechaHoraReserva = new javax.swing.JLabel();
+        jtxtFechaHoraRes = new com.toedter.calendar.JDateChooser();
+        jbFormularioReservar = new javax.swing.JButton();
+        jbFormularioCancelar = new javax.swing.JButton();
+        jbFormularioEliminar = new javax.swing.JButton();
         page_mesas = new javax.swing.JPanel();
         fondo_beige = new componentes.PanelRound();
         mesa1 = new componentes.PanelRound()
@@ -246,57 +291,10 @@ public class CajeroMenu extends javax.swing.JFrame {
         jlReservado = new javax.swing.JLabel();
         color_libre = new javax.swing.JPanel();
         jlLibre = new javax.swing.JLabel();
-        page_resumen = new javax.swing.JPanel();
-        fondo_beige1 = new componentes.PanelRound();
-        jlTotalVentas = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtblVentas = new javax.swing.JTable();
-        jtxtTotalVentas = new javax.swing.JTextField();
-        jpVentas = new componentes.PanelRound();
-        jlVentasDia = new javax.swing.JLabel();
-        page_registro = new javax.swing.JPanel();
-        fondo_beige2 = new componentes.PanelRound();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jtblRegistroReservas = new javax.swing.JTable();
-        jpRegistroReserva = new componentes.PanelRound();
-        jlRegistro = new javax.swing.JLabel();
-        jbRegistroEliminar = new javax.swing.JButton();
-        jbRegistroActualizar = new javax.swing.JButton();
-        page_pedido = new javax.swing.JPanel();
-        fondo_beige3 = new componentes.PanelRound();
-        jpPedido = new componentes.PanelRound();
-        jlPedido = new javax.swing.JLabel();
-        jlPrecioTotal = new javax.swing.JLabel();
-        jtxtPrecioTotal = new javax.swing.JTextField();
-        jbPedidoQuitar = new javax.swing.JButton();
-        jbPedidoCobrar = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jtblPedido = new javax.swing.JTable();
-        page_formularioReserva = new javax.swing.JPanel();
-        fondo_beige4 = new componentes.PanelRound();
-        jpFormulario = new componentes.PanelRound();
-        jlFormulario = new javax.swing.JLabel();
-        jlNumMesa = new javax.swing.JLabel();
-        jtxtNumMesa = new javax.swing.JTextField();
-        jlCapacidad = new javax.swing.JLabel();
-        jtxtCapacidad = new javax.swing.JTextField();
-        jlNombres = new javax.swing.JLabel();
-        jtxtNombres = new javax.swing.JTextField();
-        jlApellidos = new javax.swing.JLabel();
-        jtxtApellidos = new javax.swing.JTextField();
-        jlTelefono = new javax.swing.JLabel();
-        jtxtTelefono = new javax.swing.JTextField();
-        jlFechaHoraReserva = new javax.swing.JLabel();
-        jtxtFechaHoraRes = new com.toedter.calendar.JDateChooser();
-        jbFormularioReservar = new javax.swing.JButton();
-        jbFormularioCancelar = new javax.swing.JButton();
-        jbFormularioEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1050, 545));
         setMinimumSize(new java.awt.Dimension(1050, 545));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1050, 545));
         setResizable(false);
         setSize(new java.awt.Dimension(1050, 545));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -397,6 +395,373 @@ public class CajeroMenu extends javax.swing.JFrame {
         getContentPane().add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 550));
 
         pestañas.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+        page_resumen.setBackground(new java.awt.Color(255, 125, 14));
+        page_resumen.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fondo_beige1.setBackground(new java.awt.Color(255, 253, 247));
+        fondo_beige1.setRoundBottomLeft(50);
+        fondo_beige1.setRoundBottomRight(50);
+        fondo_beige1.setRoundTopLeft(50);
+        fondo_beige1.setRoundTopRight(50);
+        fondo_beige1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlTotalVentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jlTotalVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlTotalVentas.setText("<html> TOTAL<br>VENTAS:");
+        jlTotalVentas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        fondo_beige1.add(jlTotalVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 210, 80));
+
+        jtblVentas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jtblVentas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jtblVentas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "FECHA", "MESA", "MESERO", "PRECIO TOTAL"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtblVentas.setName(""); // NOI18N
+        jtblVentas.setShowGrid(true);
+        jScrollPane1.setViewportView(jtblVentas);
+
+        fondo_beige1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 540, -1));
+
+        jtxtTotalVentas.setEditable(false);
+        jtxtTotalVentas.setBackground(new java.awt.Color(229, 227, 227));
+        jtxtTotalVentas.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jtxtTotalVentas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtTotalVentas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        fondo_beige1.add(jtxtTotalVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 150, 60));
+
+        jpVentas.setBackground(new java.awt.Color(0, 0, 0));
+        jpVentas.setRoundBottomLeft(30);
+        jpVentas.setRoundBottomRight(30);
+        jpVentas.setRoundTopLeft(30);
+        jpVentas.setRoundTopRight(30);
+        jpVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlVentasDia.setBackground(new java.awt.Color(255, 255, 255));
+        jlVentasDia.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jlVentasDia.setForeground(new java.awt.Color(255, 255, 255));
+        jlVentasDia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlVentasDia.setText("VENTAS DEL DÍA");
+        jlVentasDia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jpVentas.add(jlVentasDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 154, 20));
+
+        fondo_beige1.add(jpVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 210, 40));
+
+        page_resumen.add(fondo_beige1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
+
+        pestañas.addTab("", page_resumen);
+
+        page_registro.setBackground(new java.awt.Color(255, 125, 14));
+        page_registro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fondo_beige2.setBackground(new java.awt.Color(255, 253, 247));
+        fondo_beige2.setRoundBottomLeft(50);
+        fondo_beige2.setRoundBottomRight(50);
+        fondo_beige2.setRoundTopLeft(50);
+        fondo_beige2.setRoundTopRight(50);
+        fondo_beige2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jtblRegistroReservas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jtblRegistroReservas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jtblRegistroReservas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "FECHA Y HORA DE RESERVA", "APELLIDOS Y NOMBRES", "N° DE MESA"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtblRegistroReservas.setName(""); // NOI18N
+        jtblRegistroReservas.setShowGrid(true);
+        jtblRegistroReservas.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jtblRegistroReservas);
+        if (jtblRegistroReservas.getColumnModel().getColumnCount() > 0) {
+            jtblRegistroReservas.getColumnModel().getColumn(0).setMinWidth(70);
+            jtblRegistroReservas.getColumnModel().getColumn(0).setPreferredWidth(70);
+            jtblRegistroReservas.getColumnModel().getColumn(0).setMaxWidth(70);
+            jtblRegistroReservas.getColumnModel().getColumn(1).setResizable(false);
+            jtblRegistroReservas.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jtblRegistroReservas.getColumnModel().getColumn(2).setResizable(false);
+            jtblRegistroReservas.getColumnModel().getColumn(2).setPreferredWidth(20);
+            jtblRegistroReservas.getColumnModel().getColumn(3).setMinWidth(100);
+            jtblRegistroReservas.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jtblRegistroReservas.getColumnModel().getColumn(3).setMaxWidth(100);
+        }
+
+        fondo_beige2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 640, -1));
+
+        jpRegistroReserva.setBackground(new java.awt.Color(0, 0, 0));
+        jpRegistroReserva.setRoundBottomLeft(30);
+        jpRegistroReserva.setRoundBottomRight(30);
+        jpRegistroReserva.setRoundTopLeft(30);
+        jpRegistroReserva.setRoundTopRight(30);
+        jpRegistroReserva.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlRegistro.setBackground(new java.awt.Color(255, 255, 255));
+        jlRegistro.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jlRegistro.setForeground(new java.awt.Color(255, 255, 255));
+        jlRegistro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlRegistro.setText("REGISTRO DE RESERVAS");
+        jlRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jpRegistroReserva.add(jlRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 200, 20));
+
+        fondo_beige2.add(jpRegistroReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 230, 40));
+
+        jbRegistroEliminar.setBackground(new java.awt.Color(63, 92, 112));
+        jbRegistroEliminar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbRegistroEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        jbRegistroEliminar.setText("ELIMINAR");
+        jbRegistroEliminar.setBorder(null);
+        jbRegistroEliminar.setFocusPainted(false);
+        jbRegistroEliminar.setFocusable(false);
+        jbRegistroEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRegistroEliminarActionPerformed(evt);
+            }
+        });
+        fondo_beige2.add(jbRegistroEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, 120, 40));
+
+        jbRegistroActualizar.setBackground(new java.awt.Color(209, 32, 31));
+        jbRegistroActualizar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbRegistroActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        jbRegistroActualizar.setText("ACTUALIZAR");
+        jbRegistroActualizar.setBorder(null);
+        jbRegistroActualizar.setOpaque(true);
+        jbRegistroActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRegistroActualizarActionPerformed(evt);
+            }
+        });
+        fondo_beige2.add(jbRegistroActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 120, 40));
+
+        page_registro.add(fondo_beige2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
+
+        pestañas.addTab("", page_registro);
+
+        page_pedido.setBackground(new java.awt.Color(255, 125, 14));
+        page_pedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fondo_beige3.setBackground(new java.awt.Color(255, 253, 247));
+        fondo_beige3.setRoundBottomLeft(50);
+        fondo_beige3.setRoundBottomRight(50);
+        fondo_beige3.setRoundTopLeft(50);
+        fondo_beige3.setRoundTopRight(50);
+        fondo_beige3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jpPedido.setBackground(new java.awt.Color(0, 0, 0));
+        jpPedido.setRoundBottomLeft(25);
+        jpPedido.setRoundBottomRight(25);
+        jpPedido.setRoundTopLeft(25);
+        jpPedido.setRoundTopRight(25);
+        jpPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlPedido.setBackground(new java.awt.Color(255, 255, 255));
+        jlPedido.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jlPedido.setForeground(new java.awt.Color(255, 255, 255));
+        jlPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlPedido.setText("PEDIDO");
+        jlPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jpPedido.add(jlPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 100, 30));
+
+        fondo_beige3.add(jpPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 150, 35));
+
+        jlPrecioTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jlPrecioTotal.setText("PRECIO TOTAL:");
+        fondo_beige3.add(jlPrecioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, -1, 40));
+
+        jtxtPrecioTotal.setEditable(false);
+        jtxtPrecioTotal.setBackground(new java.awt.Color(229, 227, 227));
+        jtxtPrecioTotal.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jtxtPrecioTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtPrecioTotal.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        fondo_beige3.add(jtxtPrecioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 110, 40));
+
+        jbPedidoQuitar.setBackground(new java.awt.Color(63, 92, 112));
+        jbPedidoQuitar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbPedidoQuitar.setForeground(new java.awt.Color(255, 255, 255));
+        jbPedidoQuitar.setText("QUITAR");
+        jbPedidoQuitar.setBorder(null);
+        jbPedidoQuitar.setFocusPainted(false);
+        jbPedidoQuitar.setFocusable(false);
+        jbPedidoQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPedidoQuitarActionPerformed(evt);
+            }
+        });
+        fondo_beige3.add(jbPedidoQuitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 420, 100, 40));
+
+        jbPedidoCobrar.setBackground(new java.awt.Color(209, 32, 31));
+        jbPedidoCobrar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbPedidoCobrar.setForeground(new java.awt.Color(255, 255, 255));
+        jbPedidoCobrar.setText("COBRAR");
+        jbPedidoCobrar.setBorder(null);
+        jbPedidoCobrar.setFocusPainted(false);
+        jbPedidoCobrar.setFocusable(false);
+        jbPedidoCobrar.setOpaque(true);
+        jbPedidoCobrar.setRequestFocusEnabled(false);
+        jbPedidoCobrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPedidoCobrarActionPerformed(evt);
+            }
+        });
+        fondo_beige3.add(jbPedidoCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 100, 40));
+
+        jtblPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jtblPedido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CÓDIGO", "NOMBRE", "PRECIO UNITARIO", "CANTIDAD", "PRECIO TOTAL"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jtblPedido);
+        if (jtblPedido.getColumnModel().getColumnCount() > 0) {
+            jtblPedido.getColumnModel().getColumn(0).setResizable(false);
+            jtblPedido.getColumnModel().getColumn(1).setResizable(false);
+            jtblPedido.getColumnModel().getColumn(2).setResizable(false);
+            jtblPedido.getColumnModel().getColumn(3).setResizable(false);
+            jtblPedido.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        fondo_beige3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 740, 360));
+
+        page_pedido.add(fondo_beige3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
+
+        pestañas.addTab("", page_pedido);
+
+        page_formularioReserva.setBackground(new java.awt.Color(255, 125, 14));
+        page_formularioReserva.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fondo_beige4.setBackground(new java.awt.Color(255, 253, 247));
+        fondo_beige4.setRoundBottomLeft(50);
+        fondo_beige4.setRoundBottomRight(50);
+        fondo_beige4.setRoundTopLeft(50);
+        fondo_beige4.setRoundTopRight(50);
+        fondo_beige4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jpFormulario.setBackground(new java.awt.Color(0, 0, 0));
+        jpFormulario.setRoundBottomLeft(25);
+        jpFormulario.setRoundBottomRight(25);
+        jpFormulario.setRoundTopLeft(25);
+        jpFormulario.setRoundTopRight(25);
+        jpFormulario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlFormulario.setBackground(new java.awt.Color(255, 255, 255));
+        jlFormulario.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jlFormulario.setForeground(new java.awt.Color(255, 255, 255));
+        jlFormulario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlFormulario.setText("FORMULARIO DE RESERVA");
+        jlFormulario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jpFormulario.add(jlFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 210, 30));
+
+        fondo_beige4.add(jpFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 250, 35));
+
+        jlNumMesa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jlNumMesa.setText("NÚMERO DE MESA:");
+        fondo_beige4.add(jlNumMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, 30));
+        fondo_beige4.add(jtxtNumMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 280, 30));
+
+        jlCapacidad.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jlCapacidad.setText("CAPACIDAD:");
+        fondo_beige4.add(jlCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, 30));
+        fondo_beige4.add(jtxtCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 280, 30));
+
+        jlNombres.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jlNombres.setText("NOMBRES:");
+        fondo_beige4.add(jlNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, 30));
+        fondo_beige4.add(jtxtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 280, 30));
+
+        jlApellidos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jlApellidos.setText("APELLIDOS:");
+        fondo_beige4.add(jlApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, -1, 30));
+        fondo_beige4.add(jtxtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 280, 30));
+
+        jlTelefono.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jlTelefono.setText("TELÉFONO:");
+        fondo_beige4.add(jlTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, 30));
+        fondo_beige4.add(jtxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 280, 30));
+
+        jlFechaHoraReserva.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jlFechaHoraReserva.setText("FECHA Y HORA DE RESERVA:");
+        fondo_beige4.add(jlFechaHoraReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, 30));
+        fondo_beige4.add(jtxtFechaHoraRes, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 420, 280, 30));
+
+        jbFormularioReservar.setBackground(new java.awt.Color(209, 32, 31));
+        jbFormularioReservar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbFormularioReservar.setForeground(new java.awt.Color(255, 255, 255));
+        jbFormularioReservar.setText("RESERVAR");
+        jbFormularioReservar.setBorder(null);
+        jbFormularioReservar.setFocusable(false);
+        jbFormularioReservar.setOpaque(true);
+        jbFormularioReservar.setRequestFocusEnabled(false);
+        jbFormularioReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFormularioReservarActionPerformed(evt);
+            }
+        });
+        fondo_beige4.add(jbFormularioReservar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, 100, 40));
+
+        jbFormularioCancelar.setBackground(new java.awt.Color(63, 92, 112));
+        jbFormularioCancelar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbFormularioCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jbFormularioCancelar.setText("CANCELAR");
+        jbFormularioCancelar.setBorder(null);
+        jbFormularioCancelar.setFocusPainted(false);
+        jbFormularioCancelar.setFocusable(false);
+        jbFormularioCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFormularioCancelarActionPerformed(evt);
+            }
+        });
+        fondo_beige4.add(jbFormularioCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 100, 40));
+
+        jbFormularioEliminar.setBackground(new java.awt.Color(117, 117, 117));
+        jbFormularioEliminar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jbFormularioEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        jbFormularioEliminar.setText("ELIMINAR");
+        jbFormularioEliminar.setBorder(null);
+        jbFormularioEliminar.setFocusPainted(false);
+        jbFormularioEliminar.setFocusable(false);
+        jbFormularioEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFormularioEliminarActionPerformed(evt);
+            }
+        });
+        fondo_beige4.add(jbFormularioEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 250, 100, 40));
+
+        page_formularioReserva.add(fondo_beige4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
+
+        pestañas.addTab("", page_formularioReserva);
 
         page_mesas.setBackground(new java.awt.Color(255, 125, 14));
         page_mesas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -527,18 +892,18 @@ public class CajeroMenu extends javax.swing.JFrame {
             .addGap(0, 40, Short.MAX_VALUE)
             .addGroup(aforo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(aforo3Layout.createSequentialGroup()
-                    .addGap(0, 13, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jlAforo3)
-                    .addGap(0, 13, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         aforo3Layout.setVerticalGroup(
             aforo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 40, Short.MAX_VALUE)
             .addGroup(aforo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(aforo3Layout.createSequentialGroup()
-                    .addGap(0, 4, Short.MAX_VALUE)
+                    .addGap(0, 8, Short.MAX_VALUE)
                     .addComponent(jlAforo3)
-                    .addGap(0, 4, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         mesa3.add(aforo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 55, 40, 40));
@@ -1484,373 +1849,6 @@ public class CajeroMenu extends javax.swing.JFrame {
         page_mesas.add(fondo_beige, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
 
         pestañas.addTab("", page_mesas);
-
-        page_resumen.setBackground(new java.awt.Color(255, 125, 14));
-        page_resumen.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        fondo_beige1.setBackground(new java.awt.Color(255, 253, 247));
-        fondo_beige1.setRoundBottomLeft(50);
-        fondo_beige1.setRoundBottomRight(50);
-        fondo_beige1.setRoundTopLeft(50);
-        fondo_beige1.setRoundTopRight(50);
-        fondo_beige1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jlTotalVentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jlTotalVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlTotalVentas.setText("<html> TOTAL<br>VENTAS:");
-        jlTotalVentas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        fondo_beige1.add(jlTotalVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 210, 80));
-
-        jtblVentas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jtblVentas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jtblVentas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "FECHA", "MESA", "MESERO", "PRECIO TOTAL"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jtblVentas.setName(""); // NOI18N
-        jtblVentas.setShowGrid(true);
-        jScrollPane1.setViewportView(jtblVentas);
-
-        fondo_beige1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 540, -1));
-
-        jtxtTotalVentas.setEditable(false);
-        jtxtTotalVentas.setBackground(new java.awt.Color(229, 227, 227));
-        jtxtTotalVentas.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jtxtTotalVentas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jtxtTotalVentas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        fondo_beige1.add(jtxtTotalVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 150, 60));
-
-        jpVentas.setBackground(new java.awt.Color(0, 0, 0));
-        jpVentas.setRoundBottomLeft(30);
-        jpVentas.setRoundBottomRight(30);
-        jpVentas.setRoundTopLeft(30);
-        jpVentas.setRoundTopRight(30);
-        jpVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jlVentasDia.setBackground(new java.awt.Color(255, 255, 255));
-        jlVentasDia.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jlVentasDia.setForeground(new java.awt.Color(255, 255, 255));
-        jlVentasDia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlVentasDia.setText("VENTAS DEL DÍA");
-        jlVentasDia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jpVentas.add(jlVentasDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 154, 20));
-
-        fondo_beige1.add(jpVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 210, 40));
-
-        page_resumen.add(fondo_beige1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
-
-        pestañas.addTab("", page_resumen);
-
-        page_registro.setBackground(new java.awt.Color(255, 125, 14));
-        page_registro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        fondo_beige2.setBackground(new java.awt.Color(255, 253, 247));
-        fondo_beige2.setRoundBottomLeft(50);
-        fondo_beige2.setRoundBottomRight(50);
-        fondo_beige2.setRoundTopLeft(50);
-        fondo_beige2.setRoundTopRight(50);
-        fondo_beige2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jtblRegistroReservas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jtblRegistroReservas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jtblRegistroReservas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "FECHA Y HORA DE RESERVA", "APELLIDOS Y NOMBRES", "N° DE MESA"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jtblRegistroReservas.setName(""); // NOI18N
-        jtblRegistroReservas.setShowGrid(true);
-        jtblRegistroReservas.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jtblRegistroReservas);
-        if (jtblRegistroReservas.getColumnModel().getColumnCount() > 0) {
-            jtblRegistroReservas.getColumnModel().getColumn(0).setMinWidth(70);
-            jtblRegistroReservas.getColumnModel().getColumn(0).setPreferredWidth(70);
-            jtblRegistroReservas.getColumnModel().getColumn(0).setMaxWidth(70);
-            jtblRegistroReservas.getColumnModel().getColumn(1).setResizable(false);
-            jtblRegistroReservas.getColumnModel().getColumn(1).setPreferredWidth(20);
-            jtblRegistroReservas.getColumnModel().getColumn(2).setResizable(false);
-            jtblRegistroReservas.getColumnModel().getColumn(2).setPreferredWidth(20);
-            jtblRegistroReservas.getColumnModel().getColumn(3).setMinWidth(100);
-            jtblRegistroReservas.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jtblRegistroReservas.getColumnModel().getColumn(3).setMaxWidth(100);
-        }
-
-        fondo_beige2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 640, -1));
-
-        jpRegistroReserva.setBackground(new java.awt.Color(0, 0, 0));
-        jpRegistroReserva.setRoundBottomLeft(30);
-        jpRegistroReserva.setRoundBottomRight(30);
-        jpRegistroReserva.setRoundTopLeft(30);
-        jpRegistroReserva.setRoundTopRight(30);
-        jpRegistroReserva.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jlRegistro.setBackground(new java.awt.Color(255, 255, 255));
-        jlRegistro.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jlRegistro.setForeground(new java.awt.Color(255, 255, 255));
-        jlRegistro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlRegistro.setText("REGISTRO DE RESERVAS");
-        jlRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jpRegistroReserva.add(jlRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 200, 20));
-
-        fondo_beige2.add(jpRegistroReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 230, 40));
-
-        jbRegistroEliminar.setBackground(new java.awt.Color(63, 92, 112));
-        jbRegistroEliminar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jbRegistroEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        jbRegistroEliminar.setText("ELIMINAR");
-        jbRegistroEliminar.setBorder(null);
-        jbRegistroEliminar.setFocusPainted(false);
-        jbRegistroEliminar.setFocusable(false);
-        jbRegistroEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbRegistroEliminarActionPerformed(evt);
-            }
-        });
-        fondo_beige2.add(jbRegistroEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, 120, 40));
-
-        jbRegistroActualizar.setBackground(new java.awt.Color(209, 32, 31));
-        jbRegistroActualizar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jbRegistroActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        jbRegistroActualizar.setText("ACTUALIZAR");
-        jbRegistroActualizar.setBorder(null);
-        jbRegistroActualizar.setOpaque(true);
-        jbRegistroActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbRegistroActualizarActionPerformed(evt);
-            }
-        });
-        fondo_beige2.add(jbRegistroActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 120, 40));
-
-        page_registro.add(fondo_beige2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
-
-        pestañas.addTab("", page_registro);
-
-        page_pedido.setBackground(new java.awt.Color(255, 125, 14));
-        page_pedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        fondo_beige3.setBackground(new java.awt.Color(255, 253, 247));
-        fondo_beige3.setRoundBottomLeft(50);
-        fondo_beige3.setRoundBottomRight(50);
-        fondo_beige3.setRoundTopLeft(50);
-        fondo_beige3.setRoundTopRight(50);
-        fondo_beige3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jpPedido.setBackground(new java.awt.Color(0, 0, 0));
-        jpPedido.setRoundBottomLeft(25);
-        jpPedido.setRoundBottomRight(25);
-        jpPedido.setRoundTopLeft(25);
-        jpPedido.setRoundTopRight(25);
-        jpPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jlPedido.setBackground(new java.awt.Color(255, 255, 255));
-        jlPedido.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jlPedido.setForeground(new java.awt.Color(255, 255, 255));
-        jlPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlPedido.setText("PEDIDO");
-        jlPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jpPedido.add(jlPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 100, 30));
-
-        fondo_beige3.add(jpPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 150, 35));
-
-        jlPrecioTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlPrecioTotal.setText("PRECIO TOTAL:");
-        fondo_beige3.add(jlPrecioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, -1, 40));
-
-        jtxtPrecioTotal.setEditable(false);
-        jtxtPrecioTotal.setBackground(new java.awt.Color(229, 227, 227));
-        jtxtPrecioTotal.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jtxtPrecioTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jtxtPrecioTotal.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        fondo_beige3.add(jtxtPrecioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 110, 40));
-
-        jbPedidoQuitar.setBackground(new java.awt.Color(63, 92, 112));
-        jbPedidoQuitar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jbPedidoQuitar.setForeground(new java.awt.Color(255, 255, 255));
-        jbPedidoQuitar.setText("QUITAR");
-        jbPedidoQuitar.setBorder(null);
-        jbPedidoQuitar.setFocusPainted(false);
-        jbPedidoQuitar.setFocusable(false);
-        jbPedidoQuitar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbPedidoQuitarActionPerformed(evt);
-            }
-        });
-        fondo_beige3.add(jbPedidoQuitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 420, 100, 40));
-
-        jbPedidoCobrar.setBackground(new java.awt.Color(209, 32, 31));
-        jbPedidoCobrar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jbPedidoCobrar.setForeground(new java.awt.Color(255, 255, 255));
-        jbPedidoCobrar.setText("COBRAR");
-        jbPedidoCobrar.setBorder(null);
-        jbPedidoCobrar.setFocusPainted(false);
-        jbPedidoCobrar.setFocusable(false);
-        jbPedidoCobrar.setOpaque(true);
-        jbPedidoCobrar.setRequestFocusEnabled(false);
-        jbPedidoCobrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbPedidoCobrarActionPerformed(evt);
-            }
-        });
-        fondo_beige3.add(jbPedidoCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 100, 40));
-
-        jtblPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jtblPedido.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "CÓDIGO", "NOMBRE", "PRECIO UNITARIO", "CANTIDAD", "PRECIO TOTAL"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(jtblPedido);
-        if (jtblPedido.getColumnModel().getColumnCount() > 0) {
-            jtblPedido.getColumnModel().getColumn(0).setResizable(false);
-            jtblPedido.getColumnModel().getColumn(1).setResizable(false);
-            jtblPedido.getColumnModel().getColumn(2).setResizable(false);
-            jtblPedido.getColumnModel().getColumn(3).setResizable(false);
-            jtblPedido.getColumnModel().getColumn(4).setResizable(false);
-        }
-
-        fondo_beige3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 740, 360));
-
-        page_pedido.add(fondo_beige3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
-
-        pestañas.addTab("", page_pedido);
-
-        page_formularioReserva.setBackground(new java.awt.Color(255, 125, 14));
-        page_formularioReserva.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        fondo_beige4.setBackground(new java.awt.Color(255, 253, 247));
-        fondo_beige4.setRoundBottomLeft(50);
-        fondo_beige4.setRoundBottomRight(50);
-        fondo_beige4.setRoundTopLeft(50);
-        fondo_beige4.setRoundTopRight(50);
-        fondo_beige4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jpFormulario.setBackground(new java.awt.Color(0, 0, 0));
-        jpFormulario.setRoundBottomLeft(25);
-        jpFormulario.setRoundBottomRight(25);
-        jpFormulario.setRoundTopLeft(25);
-        jpFormulario.setRoundTopRight(25);
-        jpFormulario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jlFormulario.setBackground(new java.awt.Color(255, 255, 255));
-        jlFormulario.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jlFormulario.setForeground(new java.awt.Color(255, 255, 255));
-        jlFormulario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlFormulario.setText("FORMULARIO DE RESERVA");
-        jlFormulario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jpFormulario.add(jlFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 210, 30));
-
-        fondo_beige4.add(jpFormulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 250, 35));
-
-        jlNumMesa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlNumMesa.setText("NÚMERO DE MESA:");
-        fondo_beige4.add(jlNumMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, 30));
-        fondo_beige4.add(jtxtNumMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 280, 30));
-
-        jlCapacidad.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlCapacidad.setText("CAPACIDAD:");
-        fondo_beige4.add(jlCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, 30));
-        fondo_beige4.add(jtxtCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 280, 30));
-
-        jlNombres.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlNombres.setText("NOMBRES:");
-        fondo_beige4.add(jlNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, 30));
-        fondo_beige4.add(jtxtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 280, 30));
-
-        jlApellidos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlApellidos.setText("APELLIDOS:");
-        fondo_beige4.add(jlApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, -1, 30));
-        fondo_beige4.add(jtxtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 280, 30));
-
-        jlTelefono.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlTelefono.setText("TELÉFONO:");
-        fondo_beige4.add(jlTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, 30));
-        fondo_beige4.add(jtxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 280, 30));
-
-        jlFechaHoraReserva.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlFechaHoraReserva.setText("FECHA Y HORA DE RESERVA:");
-        fondo_beige4.add(jlFechaHoraReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, 30));
-        fondo_beige4.add(jtxtFechaHoraRes, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 420, 280, 30));
-
-        jbFormularioReservar.setBackground(new java.awt.Color(209, 32, 31));
-        jbFormularioReservar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jbFormularioReservar.setForeground(new java.awt.Color(255, 255, 255));
-        jbFormularioReservar.setText("RESERVAR");
-        jbFormularioReservar.setBorder(null);
-        jbFormularioReservar.setFocusable(false);
-        jbFormularioReservar.setOpaque(true);
-        jbFormularioReservar.setRequestFocusEnabled(false);
-        jbFormularioReservar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbFormularioReservarActionPerformed(evt);
-            }
-        });
-        fondo_beige4.add(jbFormularioReservar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, 100, 40));
-
-        jbFormularioCancelar.setBackground(new java.awt.Color(63, 92, 112));
-        jbFormularioCancelar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jbFormularioCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        jbFormularioCancelar.setText("CANCELAR");
-        jbFormularioCancelar.setBorder(null);
-        jbFormularioCancelar.setFocusPainted(false);
-        jbFormularioCancelar.setFocusable(false);
-        jbFormularioCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbFormularioCancelarActionPerformed(evt);
-            }
-        });
-        fondo_beige4.add(jbFormularioCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 100, 40));
-
-        jbFormularioEliminar.setBackground(new java.awt.Color(117, 117, 117));
-        jbFormularioEliminar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jbFormularioEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        jbFormularioEliminar.setText("ELIMINAR");
-        jbFormularioEliminar.setBorder(null);
-        jbFormularioEliminar.setFocusPainted(false);
-        jbFormularioEliminar.setFocusable(false);
-        jbFormularioEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbFormularioEliminarActionPerformed(evt);
-            }
-        });
-        fondo_beige4.add(jbFormularioEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 250, 100, 40));
-
-        page_formularioReserva.add(fondo_beige4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 840, 490));
-
-        pestañas.addTab("", page_formularioReserva);
 
         getContentPane().add(pestañas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 550));
 
